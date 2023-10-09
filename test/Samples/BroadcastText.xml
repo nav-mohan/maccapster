@@ -1,0 +1,471 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>urn:oid:2.49.0.1.124.1641244987.2023</identifier>
+    <sender>cap-pac@canada.ca</sender>
+    <sent>2023-08-09T01:46:33-00:00</sent>
+    <status>Actual</status>
+    <msgType>Update</msgType>
+    <source>Env. Can. - Can. Met. Ctr. – Montréal</source>
+    <scope>Public</scope>
+    <code>profile:CAP-CP:0.4</code>
+    <code>layer:SOREM:1.0</code>
+    <code>layer:EC-MSC-SMC:1.0</code>
+    <code>layer:EC-MSC-SMC:1.1</code>
+    <code>layer:SOREM:2.0</code>
+    <note>Service Notice - February 2023: The Environment and Climate Change Canada (ECCC) CAP
+        Service undergoes changes from time to time as the business of alerting evolves. For 2023,
+        changes will include... 1) modifications, or even removal, of the Wireless Public Alerting
+        Message (WPAM) layer due to the successful pilot of the UpdateX feature recently deployed in
+        the Canadian Cell Broadcasting Environment, and 2) other minor improvements and corrections.
+        For more information on these changes, you are invited to subscribe to the following mailing
+        list: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info | Notification de service - février
+        2023: Le service du PAC d’Environnement et Changement climatique Canada (ECCC) subit
+        périodiquement des changements et ajouts à mesure que le système d’alerte évolue. Pour 2023,
+        ces changements incluent... 1) des modifications, voire la suppression, de la couche du
+        Service d’alertes sans fil au public (WPAM) en raison du succès du projet pilote de la
+        fonctionnalité UpdateX récemment déployée dans l’environnement de diffusion sans fil
+        canadien, et 2) d’autres améliorations et corrections mineures. Pour plus d’informations sur
+        ces changements, vous êtes invités à vous inscrire à la liste de diffusion suivante:
+        http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info</note>
+    <references>cap-pac@canada.ca,urn:oid:2.49.0.1.124.4251799494.2023,2023-08-09T01:40:40-00:00</references>
+    <info>
+        <language>en-CA</language>
+        <category>Met</category>
+        <event>thunderstorm</event>
+        <responseType>Monitor</responseType>
+        <urgency>Immediate</urgency>
+        <severity>Moderate</severity>
+        <certainty>Likely</certainty>
+        <audience>general public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>thunderstorm</value>
+        </eventCode>
+        <eventCode>
+            <valueName>SAME</valueName>
+            <value>SVR</value>
+        </eventCode>
+        <effective>2023-08-09T01:40:40-00:00</effective>
+        <expires>2023-08-09T04:39:40-00:00</expires>
+        <senderName>Environment Canada</senderName>
+        <headline>severe thunderstorm warning in effect</headline>
+        <description>
+            At 9:40 p.m. EDT, Environment Canada meteorologists are tracking a severe thunderstorm
+            capable of producing strong wind gusts, up to nickel size hail and heavy rain.
+
+            This line of severe thunderstorms is located from Orient Bay to Ruby Lake Provincial
+            Park, moving east at 55 km/h.
+
+            Hazard: 80 km/h wind gusts and nickel size hail.
+
+            Locations impacted include:
+            Ruby Lake Provincial Park, East McKirdy, Orient Bay and Barbara Lake.
+
+            ###
+
+            Heavy downpours can cause flash floods and water pooling on roads. Large hail can damage
+            property and cause injury. Strong wind gusts can toss loose objects, damage weak
+            buildings, break branches off trees and overturn large vehicles.
+
+            Severe thunderstorm warnings are issued when imminent or occurring thunderstorms are
+            likely to produce or are producing one or more of the following: large hail, damaging
+            winds, torrential rainfall.
+</description>
+        <instruction>
+            Take cover immediately, if threatening weather approaches. Lightning kills and injures
+            Canadians every year. Remember, when thunder roars, go indoors!
+
+            Emergency Management Ontario recommends that you take cover immediately if threatening
+            weather approaches.
+</instruction>
+        <web>http://weather.gc.ca/warnings/index_e.html</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>
+                msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20230809014040946/ON_00_01_LAND/STW/14040945661512644202308090503_ON_00_01_LAND/actual/en_proper_complete_u-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:7997 M:44025 C:53326</value>
+        </parameter>
+        <parameter>
+            <valueName>profile:CAP-CP:0.4:MinorChange</valueName>
+            <value>text</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>severe thunderstorm warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Ontario</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Text</valueName>
+            <value>At 9:40 p.m. Eastern Daylight Time Tuesday, Environment Canada has issued a
+                severe thunderstorm warning for North of Superior Ontario. Extra care and attention
+                should be exercised in and around the following localities: Beardmore, Jellicoe,
+                Macdiarmid, Nipigon and Rossport. Environment Canada meteorologists are tracking a
+                severe thunderstorm capable of producing strong wind gusts, up to nickel size hail
+                and heavy rain. Take cover immediately if threatening weather approaches. Intense
+                lightning is likely and tornados are possible with any thunderstorm that develops.</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>ON_00_01_LAND</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessText</valueName>
+            <value>At 9:40 p.m. Eastern Daylight Time Tuesday, Environment Canada has issued a
+                severe thunderstorm warning for this mobile coverage area. Take cover immediately if
+                threatening weather approaches.</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value>048220,048610</value>
+        </parameter>
+        <area>
+            <areaDesc>Beardmore - Jellicoe - Macdiarmid</areaDesc>
+            <polygon>49.9338,-88.5445 49.9482,-87.4321 49.1383,-87.4321 49.1129,-88.5445
+                49.9338,-88.5445</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>048220</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558069</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558075</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558090</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Nipigon - Rossport</areaDesc>
+            <polygon>49.1101,-88.6636 49.1129,-88.5445 49.1383,-87.4321 48.4447,-87.4467
+                48.475,-87.9958 48.6611,-88.1405 49.1101,-88.6636</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>048610</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558044</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558063</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558064</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558090</value>
+            </geocode>
+        </area>
+    </info>
+    <info>
+        <language>fr-CA</language>
+        <category>Met</category>
+        <event>orages</event>
+        <responseType>Monitor</responseType>
+        <urgency>Immediate</urgency>
+        <severity>Moderate</severity>
+        <certainty>Likely</certainty>
+        <audience>grand public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>thunderstorm</value>
+        </eventCode>
+        <eventCode>
+            <valueName>SAME</valueName>
+            <value>SVR</value>
+        </eventCode>
+        <effective>2023-08-09T01:40:40-00:00</effective>
+        <expires>2023-08-09T04:39:40-00:00</expires>
+        <senderName>Environnement Canada</senderName>
+        <headline>alerte d'orages violents en vigueur</headline>
+        <description>
+            À 21h40 HAE, les météorologues d’Environnement Canada surveillent un orage violent
+            pouvant produire des rafales fortes, de la grêle pouvant atteindre la taille d’une pièce
+            de cinq cents et de la pluie forte.
+
+            Cette ligne d'orages violents s'étire de Orient Bay au parc provincial Ruby Lake et il
+            se dirige vers l'est à 55 km/h.
+
+            Dangers : des rafales à 80 km/h et de la grêle de la taille d'une pièce de 5 cents.
+
+            Les endroits touchés comprennent :
+            Parc provincial Ruby Lake, East McKirdy, Orient Bay et Barbara Lake.
+
+            ###
+
+            Les pluies torrentielles peuvent causer des crues soudaines et une accumulation d'eau
+            sur les routes. De la grosse grêle peut endommager des biens et causer des blessures. De
+            fortes rafales peuvent projeter des objets non fixés, endommager des bâtiments peu
+            solides, arracher des branches d'arbres et renverser de gros véhicules.
+
+            Une alerte d'orages violents est émise lorsqu'il y a ou qu'il y aura des orages qui
+            s'accompagnent ou qui s'accompagneront probablement d'au moins un des éléments suivants
+            : grosse grêle, vents destructeurs ou pluies torrentielles.
+</description>
+        <instruction>
+            Mettez-vous immédiatement à l'abri si un phénomène météorologique menaçant s'approche.
+            La foudre tue et blesse des Canadiens chaque année. N'oubliez pas : quand le tonnerre
+            gronde, rentrez vite à l'intérieur!
+
+            Gestion des situations d'urgence Ontario vous recommande de trouver un abri
+            immédiatement si un phénomène météorologique menaçant est imminent.
+</instruction>
+        <web>http://meteo.gc.ca/warnings/index_f.html</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>warning</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>
+                msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20230809014040946/ON_00_01_LAND/STW/14040945661512644202308090503_ON_00_01_LAND/actual/en_proper_complete_u-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:7997 M:44025 C:53326</value>
+        </parameter>
+        <parameter>
+            <valueName>profile:CAP-CP:0.4:MinorChange</valueName>
+            <value>text</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>alerte d'orages violents</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Ontario</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Text</valueName>
+            <value>À 21h40 heure avancée de l'Est le mardi, Environnement Canada a émis une alerte
+                d'orages violents pour le nord du Supérieur en l'Ontario. Une attention et des
+                précautions additionnelles devraient être exercées près et autour des localités
+                suivantes: Beardmore, Jellicoe, Macdiarmid, Nipigon et Rossport. Les météorologues
+                d’Environnement Canada surveillent un orage violent pouvant produire des rafales
+                fortes, de la grêle pouvant atteindre la taille d’une pièce de cinq cents et de la
+                pluie forte. Mettez-vous immédiatement à l'abri si un phénomène météorologique
+                menaçant s'approche. De nombreux éclairs sont probables et il y a toujours un risque
+                de tornade avec un orage.</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>ON_00_01_LAND</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessText</valueName>
+            <value>À 21h40 heure avancée de l'Est le mardi, Environnement Canada a émis une alerte
+                d'orages violents pour cette zone de couverture mobile. Mettez-vous immédiatement à
+                l'abri si un phénomène météorologique menaçant s'approche.</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value>048220,048610</value>
+        </parameter>
+        <area>
+            <areaDesc>Beardmore - Jellicoe - Macdiarmid</areaDesc>
+            <polygon>49.9338,-88.5445 49.9482,-87.4321 49.1383,-87.4321 49.1129,-88.5445
+                49.9338,-88.5445</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>048220</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558069</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558075</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558090</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Nipigon - Rossport</areaDesc>
+            <polygon>49.1101,-88.6636 49.1129,-88.5445 49.1383,-87.4321 48.4447,-87.4467
+                48.475,-87.9958 48.6611,-88.1405 49.1101,-88.6636</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>048610</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558044</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558063</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558064</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3558090</value>
+            </geocode>
+        </area>
+    </info>
+    <Signature Id="NAADS Signature" xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                <DigestValue>WOED73zHJV+WHJBktEfVyLIq+rSjSzQyU+Vhvwvb7h4=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>
+            T8Mz75qrI3Dz5At4UeiOj7bq/aJ7pP8DVJbejP6jYtNUBuZ2fOb2xzgdkGNPRPU9DU/guPI8cn3BfHjH5GTTwKeXV981wzZlNjOoBMDd6OiuLM+j4OoqoO63IGNmZIpZ4XfwEXKt5CZPd70o6aJeLyO6cXgo7ZwNisYrJTA1RZkNabrrZJQvrBRJZiSOhlzjxjoAVKOX4uEGZFZgpFrVWMbSjmCR+5qdPVV6fMFKMQcdIwO6H4+lrcz4e447/5vdCSmRLfXmbrFwjGFCBnGmZlWW5DkRgqRC9o8IkwoiaqF/aFHfJNXVndw08U9bYZVy+qny52/SPZavFsyMqSoDJw==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>
+                    MIIG1TCCBb2gAwIBAgIQCLBXbMCH0E9+Ud2tlJzqdDANBgkqhkiG9w0BAQsFADBZMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMTMwMQYDVQQDEypEaWdpQ2VydCBHbG9iYWwgRzIgVExTIFJTQSBTSEEyNTYgMjAyMCBDQTEwHhcNMjMwNzA1MDAwMDAwWhcNMjQwNzA4MjM1OTU5WjBmMQswCQYDVQQGEwJDQTEQMA4GA1UECBMHT250YXJpbzERMA8GA1UEBxMIT2FrdmlsbGUxFjAUBgNVBAoTDVBlbG1vcmV4IENvcnAxGjAYBgNVBAMTEWRzczIucGVsbW9yZXguY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArryCm+JexUvrBNhmKkm7vgnLXG1tiqMUCUONy3wVUbtt6+nvdKRDBP9+8KrhVL1M/qpJH7NmHFbkmoOJgPNnuCvvxXDK8yQYfny8Rk/8XKl7l7PjlHu8sz6wuBOVOfGLkIKD8bcbKJAY52NGDhtx5S9xnlUeUYq/c78ZrgK+/nkxi8sLQQQprzYnR/YpmTFbxDanSPVUV8BMmhg+Z3HobEdueTHPkR54EYjd84/4JE43T9yKOzlqGt2I/aKM10ti+1KKU1ZpR3sq40Pyd5jdPlN1IX8rVNzclUN/dd020nicYePED8IvuEl0JNx/3HxfMoEtAapVhYmasZjYTPNmfwIDAQABo4IDijCCA4YwHwYDVR0jBBgwFoAUdIWAwGbH3zfez70pN6oDHb7tzRcwHQYDVR0OBBYEFD9Cflmm3g/uJnllbeYqMqzIgYE1MBwGA1UdEQQVMBOCEWRzczIucGVsbW9yZXguY29tMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwgZ8GA1UdHwSBlzCBlDBIoEagRIZCaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0R2xvYmFsRzJUTFNSU0FTSEEyNTYyMDIwQ0ExLTEuY3JsMEigRqBEhkJodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRHbG9iYWxHMlRMU1JTQVNIQTI1NjIwMjBDQTEtMS5jcmwwPgYDVR0gBDcwNTAzBgZngQwBAgIwKTAnBggrBgEFBQcCARYbaHR0cDovL3d3dy5kaWdpY2VydC5jb20vQ1BTMIGHBggrBgEFBQcBAQR7MHkwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBRBggrBgEFBQcwAoZFaHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0R2xvYmFsRzJUTFNSU0FTSEEyNTYyMDIwQ0ExLTEuY3J0MAkGA1UdEwQCMAAwggF+BgorBgEEAdZ5AgQCBIIBbgSCAWoBaAB2AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8vOzew1FIWUZxH7WbAAABiSbE8DUAAAQDAEcwRQIhAPxMz/J/8gIpqjlF6u0+aYwigUx4d4V2BQaWJyVUQ3nlAiB2DUfs7L0lIj+xNp12CpgUhPEYRbVBtyvfjJDGgtJ4BwB2AEiw42vapkc0D+VqAvqdMOscUgHLVt0sgdm7v6s52IRzAAABiSbE78wAAAQDAEcwRQIgbxD2QAsKDGAt33ubjSiGoT09sNykvhJDHvTEGTpmAq0CIQDh7B7vteNkX/ZgiSS9vWutC0oGFEeCSErCEK9iXG3I8wB2ANq2v2s/tbYin5vCu1xr6HCRcWy7UYSFNL2kPTBI1/urAAABiSbE74QAAAQDAEcwRQIgbTAiTWTfPXg1LPe1T73SaeEo3gATf05cHJcHdRwjhigCIQCDyfYbUxgiGwfbhTg/hHSQMx1x6Cr1Nwx9seve8a0chzANBgkqhkiG9w0BAQsFAAOCAQEAn8hLHLAbw9IkjFzuLLIfLpYMu74IaJTdejx1h3Pon3ArzHeT29Z8i/56Tf4kFld8idRhdbSERgKYB38wTThiLyVBP8yZjPM6HL1+Ee3Q22VHgP9+ftLXxItuRmatQNwiM5yKUCUtFdEmaBZRw8p8yyIHU5zUUu79seAMcj47IxcLtttVw3wCtwmTI4L+ecFetyAdSXutuQUxdzfdwP039LnilzxFC3ypObG50tW+EnBOuQubrEcgIhBvQ0WVlb2B/dD+u/RaJ1XqKjVkKVTdFbhNUDnZzU29n/a7Y5TSuPIw4CVuesdr0A3Q63h3o3ojPTvLTLOfiP1BuJxZeyT9ZA==</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+        <Object xmlns="">
+            <SignatureProperties>
+                <SignatureProperty Id="NAADS-DSS1" Target="https://dss1.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" />
+                </SignatureProperty>
+                <SignatureProperty Id="NAADS-DSS2" Target="https://dss2.naad-adna.pelmorex.com">
+                    <xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" />
+                </SignatureProperty>
+            </SignatureProperties>
+        </Object>
+    </Signature>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="Environment Canada">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                <DigestValue>WOED73zHJV+WHJBktEfVyLIq+rSjSzQyU+Vhvwvb7h4=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>T1eZMcb+IqzfdYDbPzTY6HwXpaX6cHSRy/SnGRHwMjvXOInMAsR0i8tAfnPtlGn1
+            jfOUX3zP1DDv0RcQuXrTbHaxxoADwDKitrsQMNF7WTQ4clTLanOzj3qPex1ma8wa
+            kusEMvYS0Pxpmd+zDkmlGOzCy0abUyDzF0odJwbvJG7OXltx5avflb60p5X8JP/T
+            i6tTsVOhBYX759fq/n2wFiIuOQkGCzNV5KDVlE0cVWwpKni/kmC3E3CfgUDErEpW
+            WPFc3eegJPO60wWRegm/f30GAR5x/SJCXkXwECJyF3XoetjIANGIEkrXmyWE27vt
+            frSEqVqjloxLRHwgioJFTw==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIHQDCCBiigAwIBAgIQauIRkpOPcGViI+LoZHWDFzANBgkqhkiG9w0BAQsFADCB
+                    ujELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsT
+                    H1NlZSB3d3cuZW50cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAy
+                    MDEyIEVudHJ1c3QsIEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEuMCwG
+                    A1UEAxMlRW50cnVzdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEwxSzAeFw0y
+                    MzA0MjcxNDEyNDVaFw0yNDA1MDcxNDEyNDVaMGwxCzAJBgNVBAYTAkNBMQ8wDQYD
+                    VQQIEwZRdWViZWMxETAPBgNVBAcTCEdhdGluZWF1MR8wHQYDVQQKExZTaGFyZWQg
+                    U2VydmljZXMgQ2FuYWRhMRgwFgYDVQQDDA8qLndlYXRoZXIuZ2MuY2EwggEiMA0G
+                    CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOSYFvWlJgQgD5twPwuMqUXQB8Raj6
+                    enUh60KlOqYi2Moja8qBMhANS848XjHd+OlTNKv5J9YT6OoxTqcRe60e3nWYF6/u
+                    Plu+O4KWOO8x6jWbttEn5G7j7V35yaWXqP0LObVrQLDMYX3D4xsm+MJK7eyGJz8k
+                    AJAJYONS/+dp7/0jlrzlTjyuT4Uk50zVDvTGxiYpgjPfuXG9Bke5q8Cju4EEgAfW
+                    1I2+67Is7ae2fTjhvPH+w+L4iujk1ucmkrZqd2Norr8eeLebvDiSNxV4FkdzUZKQ
+                    TTycHQb1u/79WGgRKCH+nPYTzW/l/muRz59V0LKTQOlFmq8H45fmSYWZAgMBAAGj
+                    ggONMIIDiTAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRlq9u/A7i58xA3Eb4DmYis
+                    FzYwKTAfBgNVHSMEGDAWgBSConB03bxTP8971PfNf6dgxgpMvzBoBggrBgEFBQcB
+                    AQRcMFowIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLmVudHJ1c3QubmV0MDMGCCsG
+                    AQUFBzAChidodHRwOi8vYWlhLmVudHJ1c3QubmV0L2wxay1jaGFpbjI1Ni5jZXIw
+                    MwYDVR0fBCwwKjAooCagJIYiaHR0cDovL2NybC5lbnRydXN0Lm5ldC9sZXZlbDFr
+                    LmNybDCBnQYDVR0RBIGVMIGSgg8qLndlYXRoZXIuZ2MuY2GCDXdlYXRoZXIuZ2Mu
+                    Y2GCC21ldGVvLmdjLmNhgg0qLm1ldGVvLmdjLmNhghUqLmFscGhhLndlYXRoZXIu
+                    Z2MuY2GCEyouYWxwaGEubWV0ZW8uZ2MuY2GCFCouYmV0YS53ZWF0aGVyLmdjLmNh
+                    ghIqLmJldGEubWV0ZW8uZ2MuY2EwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQG
+                    CCsGAQUFBwMBBggrBgEFBQcDAjBMBgNVHSAERTBDMDcGCmCGSAGG+mwKAQUwKTAn
+                    BggrBgEFBQcCARYbaHR0cHM6Ly93d3cuZW50cnVzdC5uZXQvcnBhMAgGBmeBDAEC
+                    AjCCAXsGCisGAQQB1nkCBAIEggFrBIIBZwFlAHUAc9meiRtMlnigIH1HneayxhzQ
+                    UV5xGSqMa4AQesF3crUAAAGHww80IQAABAMARjBEAiAkpowR7bbTYLp4v/tw0Fav
+                    HHP8mm2i6/ecg03yasJkkgIga1hmg5g/Gq97+HOCDwjsy77aS8+PirSarIO6/X1H
+                    EfkAdQA7U3d1Pi25gE6LMFsG/kA7Z9hPw/THvQANLXJv4frUFwAAAYfDDzQcAAAE
+                    AwBGMEQCIBKVCiUTam6W9Y+5TiuhpsxVVx2TYVz9SebYPuB4XyHUAiB4Y9ZXnkOt
+                    rJJAaw4im3kY7OWZG40xPUL1ygK8trUsIAB1AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8
+                    vOzew1FIWUZxH7WbAAABh8MPNF0AAAQDAEYwRAIgYbZkNJlz8a4d35p4+wLg0h5P
+                    WtFyyBEqy06IoSV7UWICIH65mirJoLVsZFK7kXW3IJF4+xlgATBcr/n2ImBLSWug
+                    MA0GCSqGSIb3DQEBCwUAA4IBAQCcp2dfEDsCzJHpMsTF1hlEyYPTgmfrSbgegWT3
+                    76r0r7XGY7qIym53HE6Pk3Q7BgsegpV+pS8UMWx1m9x0ZcUQX11gMBlNLv0WCSBe
+                    4/9BOaGc2deYrXsRAmmFJwqvgegcBSQhg4zZSoSSVqJPhaJ1WYWqDbJW+doY15xy
+                    JPm7UbZqCAbzm3/c36N9j/Zu6h+LA9rhltfwYoWCyqlBtJCRrs7K7KEP+dLtsoby
+                    +AhyY+3dK2IB4G7v5Qbxa88WKV9EsXXMpvl0v/kXSDjIHJwRPyOf1OKU9x2Mc3Mx
+                    KEgzSJ0GUUW0RqqCVWZ14TBoxUq1jJw4m12zSF+PYFpSH6g5</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</alert>
