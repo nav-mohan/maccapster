@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(TARGET_NAME capster)
 add_executable(${TARGET_NAME} main.mm gui.mm)
-# add_compile_options(-O0 -g)
+add_compile_options(-g)
+add_compile_options(-O0)
 
 add_subdirectory(libs/client)
 add_subdirectory(libs/xmlhandler)

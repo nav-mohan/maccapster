@@ -41,6 +41,7 @@ private:
     inline static std::mutex mut_;
     inline static bool check_update_history(std::string h)
     {
+        std::cout << "CHECKING HISTORY " << h << std::endl;
         std::lock_guard<std::mutex> lk(XmlHandler::mut_);
         for(auto it = history_.rbegin(); it != history_.rend(); it++)
             if(h == *it)

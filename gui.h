@@ -5,7 +5,7 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (nullable, strong) NSWindow *window;
-@property (nonatomic, strong) NSTextField *latLabel;
+@property (nonnull, nonatomic, strong) NSTextField *latLabel;
 @end
 
 #endif // GUI_H

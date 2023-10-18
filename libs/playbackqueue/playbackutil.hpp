@@ -125,12 +125,10 @@ OSStatus PBUtil::OpenFile(const std::string& filepath)
     
     AudioStreamBasicDescription dataFormat;
     UInt32 propsize = sizeof(dataFormat);
-    std::cout << "get asbd" << std::endl;
     err = AudioFileGetProperty(audioPlayer_.inFile_, kAudioFilePropertyDataFormat, &propsize, &dataFormat);
     if(err != noErr) {printf("Failed to get file ASBD %d:%s\n",err,strerror(err));return err;}
 
     AudioQueueRef outAQ;
-    std::cout << "new queue" << std::endl;
     err = AudioQueueNewOutput(&dataFormat, Callback, &audioPlayer_, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 0, &outAQ);
     // err = AudioQueueNewOutput(&dataFormat, Callback, &audioPlayer_, NULL, kCFRunLoopDefaultMode, 0, &outAQ);
     if(err != noErr) {printf("Failed to create outAQ %d:%s\n",err,strerror(err));return err;}
@@ -138,7 +136,7 @@ OSStatus PBUtil::OpenFile(const std::string& filepath)
     UInt32 bufByteSize;
     err = CalculateBytesForDuration(audioPlayer_.inFile_, dataFormat, DURATION, &bufByteSize, &audioPlayer_.numPktsToRead_);
     if(err != noErr) {printf("Failed to CalculateBytesForDuration %d:%s\n",err,strerror(err));return err;}
-    std::cout << "get bytes " << bufByteSize << std::endl;
+    printf("Playback duration %d: %d BYTES",DURATION, bufByteSize);
 
     bool isFormatVBR = (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0);
     if(isFormatVBR)

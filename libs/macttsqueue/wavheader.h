@@ -16,5 +16,44 @@ struct WavHeader
 
   // data
   uint8_t data[4] = {'d', 'a', 't', 'a'};
-  uint32_t dataSize;
+  uint32_t pcmDataSize;
+
+  WavHeader(int majorVersion)
+  {
+    if(majorVersion == 13)
+    {
+      this->audioFormat = 1;
+      this->bitsPerSample = 16;
+    }
+    else 
+    {
+      this->audioFormat = 3;
+      this->bitsPerSample = 32;
+    }
+  }
+  WavHeader &setNumChannels(uint16_t nc)
+  {
+    this->numChannels = nc;
+    return *this;
+  }
+  WavHeader& setSampleRate(uint32_t sr) 
+  {
+    this->sampleRate = sr;
+    return *this;
+  }
+  WavHeader& setBitsPerSample(uint16_t bps)
+  {
+    this->bitsPerSample = bps;
+    this->blockAlign = bps/8;
+    this->bytesPerSec = this->blockAlign * this->sampleRate;
+    if(bps == 32) this->audioFormat = 3;
+    if(bps == 16) this->audioFormat = 1;
+    return *this;
+  }
+  WavHeader& setPcmDataSize(uint32_t ds)
+  {
+    this->pcmDataSize = ds;
+    this->chunkSize = ds + 36;
+    return *this;
+  }
 };

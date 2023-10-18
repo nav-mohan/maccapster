@@ -22,6 +22,8 @@
 }
 // Add a text-to-speech task to the queue
 - (void)enqueueText:(Speechable *)s;
+
+// Callback for [_synthesizer writeUtterance]
 -(void) audioBufferCallback : (AVAudioBuffer*)buffer filename:(NSString*)filename;
 
 // Start processing the queue (begin speech synthesis)

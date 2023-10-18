@@ -16,10 +16,10 @@ void XmlHandler::find_match(std::string &host)
     ptrdiff_t curPos = 0;
     while (iter != end)
     {
-        std::cout << "iter_pos = " << iter->position() << std::endl;
-        std::cout << "iter_len = " << iter->length() << std::endl;
+        // std::cout << "iter_pos = " << iter->position() << std::endl;
+        // std::cout << "iter_len = " << iter->length() << std::endl;
         curPos = iter->position() - prevPos - prevLength;
-        std::cout << curPos << "," << prevPos << "," << prevLength << std::endl;
+        // std::cout << curPos << "," << prevPos << "," << prevLength << std::endl;
         matches_.emplace(fullBuffer_[host].substr(curPos, iter->length()));
 
         // std::cout << "\n++++++";
@@ -30,7 +30,7 @@ void XmlHandler::find_match(std::string &host)
 
         fullBuffer_[host].erase(curPos, iter->length());
         boost::algorithm::trim(fullBuffer_[host]); // remove leading and trailing whitespaces
-        std::cout << "LEFTOVER " << fullBuffer_[host].size() << "\n";
+        // std::cout << "LEFTOVER " << fullBuffer_[host].size() << "\n";
         prevLength = iter->length();
         prevPos = iter->position();
         iter++;
@@ -65,6 +65,9 @@ void XmlHandler::process_matches(std::string &host)
     
     // Heartbeat
     if (status.data() == "System") return;
+    FILE *xmllogfile = fopen((identifier.data()+".xml").c_str(),"w");
+    fwrite(y.c_str(), 1, y.size(), xmllogfile);
+    fclose(xmllogfile);
 
     // Not Actual?
     if (status.data() != "Actual")
@@ -174,6 +177,7 @@ void XmlHandler::process_matches(std::string &host)
         if (resourceNodes.size() == 0) // No <Resource> nodes. Perform TTS
         {
             std::cout << "NO RESOURCES \n";
+            // need to clean up things like "#####" from the text
             // if (severity != "Minor" || urgency != "Past")
             // {
                 audioFileName += ".wav";

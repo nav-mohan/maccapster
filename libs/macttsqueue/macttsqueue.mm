@@ -12,92 +12,44 @@
 }
 @end;
 
+// the TTS queue works on creating only 1 file at a time. 
+// the callback is blocking. entering the callback is a serially queued. but startProcessingQueue in of itself is not blocking. 
 @implementation TextToSpeechQueue {
     AVSpeechSynthesizer *_synthesizer;
     NSMutableArray<Speechable *> *_queue;
     dispatch_queue_t _dispatchQueue;
     NSCondition *_condition;
-    FILE *_outfile;
-    NSString* _filename;
-    char *_massivebuffer;
-    size_t _bytesCopied;
+    uint32_t _majorVersion; // the audiobuffercallback has a breaking change between MacOS12 and MacOS13
+    
+    // file properties - dont touch these anywhere outside of the audidbuffercallback. otherwise you'll confuse audioBufferCallback.
+    FILE *_outfile; //the current file audioBufferCallback is working on creating
+    NSString *_filename; // the filename of the current file audioBufferCallback is working on creating
+    size_t _pcmBytesWritten; // total pcm bytes of the current file audioBufferCallback is working on creating
 }
 
 - (instancetype)init {
+
+    NSString* versionStr = [[NSProcessInfo processInfo] operatingSystemVersionString];
+    NSOperatingSystemVersion versionOS = [[NSProcessInfo processInfo] operatingSystemVersion];
+    NSLog(@"%@",versionStr);
+    NSLog(@"%ld | %ld | %ld",versionOS.majorVersion, versionOS.minorVersion, versionOS.patchVersion);
+    _majorVersion = versionOS.majorVersion;
+
     self = [super init];
     _synthesizer = [[AVSpeechSynthesizer alloc] init];
     _queue = [NSMutableArray array];
     _condition = [[NSCondition alloc]init];
     _dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    _outfile = nullptr;
-    _filename = nullptr;
     dispatch_async(_dispatchQueue,^{[self startProcessingQueue];});
-    _massivebuffer = (char*)malloc(16777216);
-    _bytesCopied = 44;
     return self;
-}
-
--(void) audioBufferCallback : (AVAudioBuffer*)buffer filename:(NSString*)filename
-{
-    void *data = buffer.audioBufferList->mBuffers->mData;
-    uint32_t bufSize = buffer.audioBufferList->mBuffers->mDataByteSize;
-
-    memcpy(_massivebuffer+_bytesCopied,data,bufSize);
-    _bytesCopied += bufSize;
-
-    if(bufSize != 0) return;
-    printf("NO MORE DATA\n");
-
-    // do this on complete. use _bytesCopied
-    const char *fname = [filename UTF8String];
-    AVAudioFormat *format = buffer.format;
-    WavHeader wavheader;
-    wavheader.dataSize = _bytesCopied - 44;
-    wavheader.chunkSize = wavheader.dataSize + 36;
-    _outfile = fopen([filename UTF8String],"ab");
-
-    if (format) 
-    {
-        const AudioStreamBasicDescription *streamDescription = format.streamDescription;
-        wavheader.sampleRate = format.sampleRate;
-        wavheader.numChannels = format.channelCount;
-        wavheader.bitsPerSample = streamDescription->mBitsPerChannel;
-        wavheader.blockAlign = wavheader.bitsPerSample/8;
-        wavheader.bytesPerSec      = wavheader.blockAlign*wavheader.sampleRate;
-        if(wavheader.bitsPerSample == 32)
-            wavheader.audioFormat = 3;
-        else                        // bitsPerSample == 16
-            wavheader.audioFormat = 1;
-
-        printf("fmtSize %d\n", wavheader.fmtSize);
-        printf("audioFormat %d\n", wavheader.audioFormat);
-        printf("numChannels %d\n", wavheader.numChannels);
-        printf("sampleRate %d\n", wavheader.sampleRate);
-        printf("bytesPerSec %d\n", wavheader.bytesPerSec);
-        printf("blockAlign %d\n", wavheader.blockAlign);
-        printf("bitsPerSample %d\n", wavheader.bitsPerSample);
-
-    } else {
-        NSLog(@"Audio buffer format is nil.");
-    }
-
-    memcpy(_massivebuffer, &wavheader, 44);
-
-    int bytesWritten = fwrite(_massivebuffer,1,_bytesCopied+44,_outfile);
-    printf("WROTE %d BYTES %s\n",_bytesCopied + 44,fname);
-    fclose(_outfile);
-
-    _bytesCopied = 44;
-
-    return onComplete(filename);
 }
 
 - (void)enqueueText:(Speechable *)sp {
     printf("PUSHING\n");
     [_condition lock];
     [_queue addObject:sp];
-    [_condition signal];
     [_condition unlock];
+    [_condition signal];
     printf("SIGNALLED\n");
 }
 
@@ -106,13 +58,12 @@
     while(1)
     {
         [_condition lock];
-        while(_queue.count == 0) {printf("WAIT\n");[_condition wait];}
+        while(_queue.count == 0) [_condition wait];
         NSString *text       = [_queue.firstObject->text_ copy];
         NSString *filename   = [_queue.firstObject->filename_ copy];
         NSString *language   = [_queue.firstObject->language_ copy];
-        printf("POPPING %s\n",filename.UTF8String);
+        NSLog(@"POPPING %@",filename);
         [_queue removeObjectAtIndex:0];
-        printf("REMOVED %s\n",filename.UTF8String);
         [_condition unlock];
         
         AVSpeechUtterance *utterance    = [AVSpeechUtterance speechUtteranceWithString:text];
@@ -120,11 +71,61 @@
         utterance.rate = 0.35;
         [utterance setVoice:voice];
         
-        // [_synthesizer writeUtterance:utterance toBufferCallback:^(AVAudioBuffer * buffer) {audioBufferCallback(buffer,filename.UTF8String);}];
-        [_synthesizer writeUtterance:utterance toBufferCallback:^(AVAudioBuffer * buffer) {[self audioBufferCallback : buffer filename:filename];}];
-        std::cout << "HELLO WORLD" << std::endl; // this will show up before the TTS is done proving that we've succesfully deployed our TTS to another thread. whether or not it works inside that other thread is a whole other problem. 
+        [_synthesizer writeUtterance:utterance toBufferCallback:^(AVAudioBuffer * buffer) 
+        {
+            [self audioBufferCallback : buffer filename:filename ];
+        }];
+        
+        [utterance release];
+        [voice release];
+        [text release];
+        [filename release];
+        [language release];
     }
 }
+
+-(void) audioBufferCallback : (AVAudioBuffer*)buffer filename:(NSString*)filename
+{
+    char *data = (char*)buffer.audioBufferList->mBuffers->mData;
+    uint32_t bufSize = buffer.audioBufferList->mBuffers->mDataByteSize;
+    NSLog(@"AUDIO BUFFER CALLBACK %@, %d",filename, bufSize);
+
+    if(!filename || !_outfile) // create new file
+    {
+        _filename = filename;
+        _outfile = fopen([filename UTF8String],"w");
+        _pcmBytesWritten = 0;
+        char dummy[sizeof(WavHeader)];
+        fwrite(&dummy, 1, sizeof(WavHeader), _outfile); // write dummy WAV header and reserver space
+    }
+
+    // write PCM Samples
+    _pcmBytesWritten += fwrite(data, 1, bufSize, _outfile);
+
+    // [self stopProcessingQueue]; // calling this here after en-CA TTS will drop the fr-CA TTS. 
+    if(_majorVersion > 12 && bufSize != 0) return; // else write the WavHeader, reset the FILE params, and call OnComplete
+    
+    AVAudioFormat *format = buffer.format;
+    WavHeader wavheader(_majorVersion);
+    wavheader.setPcmDataSize(_pcmBytesWritten);
+    if(format)
+    {
+        const AudioStreamBasicDescription *streamDescription = format.streamDescription;
+        wavheader.setSampleRate(format.sampleRate).setNumChannels(format.channelCount).setBitsPerSample(streamDescription->mBitsPerChannel);
+    }
+    else NSLog(@"Audio buffer format is nil. Lets hope the default values based on _majorVersion will work");
+
+    fseek(_outfile,0,0);
+    int wavHeaderBytesWritten = fwrite(&wavheader, 1, sizeof(WavHeader), _outfile);
+    fclose(_outfile);
+    _pcmBytesWritten = 0;
+    _outfile = nullptr;
+    _filename = nullptr;
+    wavheader = {0};
+    if(wavHeaderBytesWritten != sizeof(WavHeader)) return;
+    return onComplete(filename);
+}
+
 
 - (void)stopProcessingQueue {
     [_synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];

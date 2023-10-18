@@ -104,8 +104,8 @@ void start_server(const char *portNumber, const uint32_t HEARTBEAT_FREQUENCY)
         while(1)
         {
             for(auto filename : filenames){
-                sleep(HEARTBEAT_FREQUENCY);
                 open_and_send(filename.c_str(),clientfd);
+                sleep(HEARTBEAT_FREQUENCY);
             }
             sleep(2*HEARTBEAT_FREQUENCY);
         }

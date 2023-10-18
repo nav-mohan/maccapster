@@ -20,14 +20,31 @@ XmlHandler xmlHandler;
 RS232Util relayControl;
 GeoUtil geoUtil;
 
+
+#include <regex>
+
+std::regex find_hashhashhash("###");
+std::regex find_hashtag("#");
+std::regex find_multiwhitespace("\\s\\s+");
+std::string replace_hashhashhash = "";
+std::string replace_hashtag = "hastag ";
+std::string repace_multiwhitespace = " ";
+std::string prepareTextForTTS(const std::string ttsText)
+{
+    std::string modified = std::regex_replace(ttsText, find_hashhashhash, replace_hashhashhash);
+    modified = std::regex_replace(modified, find_hashtag , replace_hashtag);
+    modified = std::regex_replace(modified, find_multiwhitespace, repace_multiwhitespace);
+    return modified;
+}
+
+
+
+
 // std::ofstream capturedOutput("output.txt");
 int main(int argc, char *argv[])
 {
-    // Create a stringstream to capture the output
-
-    // Redirect std::cout to the stringstream
-    // std::streambuf* originalBuffer = std::cout.rdbuf();
-    // std::cout.rdbuf(capturedOutput.rdbuf());
+    std::cout << "Press <RETURN> to start" << std::endl;
+    getchar();
 
     UserSettings settings;
 
@@ -112,7 +129,8 @@ int main(int argc, char *argv[])
     std::cout << "CONFIGURED TTSQUEUE" << std::endl;
 
     xmlHandler.enqueueTTS = [&](std::string&& ttsText, std::string& filename, const std::string& language){
-        const char *t = ttsText.c_str();
+        std::string output = std::move(prepareTextForTTS(std::move(ttsText)));
+        const char *t = output.c_str();
         const char *f = filename.c_str();
         const char *l = language.c_str();
 
@@ -124,8 +142,8 @@ int main(int argc, char *argv[])
         NSLog(@"%@",nsl);
         // NSLog(@"%@",nst);
         Speechable *sp = [[Speechable alloc] initWithTextFilenameLanguage:nst filename:nsf language:nsl];
-        // Speechable *sp = [[Speechable alloc] initWithTextFilenameLanguage:@"This is not a test" filename:@"2.wav" language:@"en-CA"];
         [ttsq enqueueText : sp];
+        [sp release];
     };
     std::cout << "CONFIGURED XMLHANDLER ENQUEUTTS" << std::endl;
 
