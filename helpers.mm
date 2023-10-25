@@ -32,3 +32,19 @@ void print_usage()
     printf("EXAMPLE: ./capster TEST 8000 42.384 -81.836\n");
 }
 
+
+
+// #include <regex>
+std::regex find_hashhashhash("###");
+std::regex find_hashtag("#");
+std::regex find_multiwhitespace("\\s\\s+");
+std::string replace_hashhashhash = "";
+std::string replace_hashtag = "hastag ";
+std::string repace_multiwhitespace = " ";
+std::string prepareTextForTTS(const std::string ttsText)
+{
+    std::string modified = std::regex_replace(ttsText, find_hashhashhash, replace_hashhashhash);
+    modified = std::regex_replace(modified, find_hashtag , replace_hashtag);
+    modified = std::regex_replace(modified, find_multiwhitespace, repace_multiwhitespace);
+    return modified;
+}
