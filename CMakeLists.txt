@@ -1,4 +1,4 @@
-message("BUILDING CAPSTER")
+message("BUILDING MACAPSTER")
 
 cmake_minimum_required(VERSION 3.13)
 project(Capster LANGUAGES CXX C)
@@ -11,6 +11,7 @@ add_compile_options(-g)
 add_compile_options(-O0)
 
 add_subdirectory(libs/client)
+add_subdirectory(libs/mslogger)
 add_subdirectory(libs/xmlhandler)
 add_subdirectory(libs/decodeutil)
 add_subdirectory(libs/downloadqueue)
@@ -20,16 +21,27 @@ add_subdirectory(libs/macttsqueue)
 add_subdirectory(libs/playbackqueue)
 
 target_include_directories( ${TARGET_NAME} PUBLIC 
-    libs/client         libs/xmlhandler
-    libs/decodeutil     libs/downloadqueue
-    libs/rs232util      libs/geoutil
-    libs/macttsqueue    libs/playbackqueue
+    libs/mslogger     
+    libs/client         
+    libs/xmlhandler
+    libs/decodeutil
+    libs/downloadqueue
+    libs/rs232util
+    libs/geoutil
+    libs/macttsqueue
+    libs/playbackqueue
     )
 
 target_link_libraries(${TARGET_NAME} PUBLIC 
-    client xmlhandler decodeutil 
-    downloadqueue rs232util 
-    geoutil macttsqueue playbackqueue
+    client 
+    xmlhandler 
+    decodeutil 
+    downloadqueue 
+    rs232util 
+    geoutil 
+    macttsqueue 
+    playbackqueue
+    mslogger
     "-framework Cocoa"
 )
 
@@ -70,6 +82,8 @@ set(DYNAMIC_LIBRARIES
     "/opt/homebrew/opt/openssl@3/lib/libcrypto.3.dylib"
     # "/usr/local/opt/onnxruntime/lib/libonnxruntime.1.14.1.dylib"
 )
+
+# this does not do the job... i have to resort to install_name_tool
 set_target_properties(${TARGET_NAME} PROPERTIES
     INSTALL_RPATH "@executable_path/../Resources")
 
@@ -78,9 +92,12 @@ foreach(LIBRARY ${DYNAMIC_LIBRARIES})
     install(FILES ${LIBRARY} DESTINATION ${FRAMEWORKS_DIR})
 endforeach()
 
-# execute the capster.app sitting in your build folder. either by double-clicking or by executing the binary within
-# before you package using ASMALONEY's script
+
+# cmake .. (this will make an empty shell of the capster.app folder)
+# make 
+# make install (this will populate the capster.app folder)
 # cd capster.app/Contents/MacOS/
 # install_name_tool -change "/opt/homebrew/opt/openssl@3/lib/libssl.3.dylib" "/Applications/capster.app/Contents/Frameworks/libssl.3.dylib" capster
 # install_name_tool -change "/opt/homebrew/opt/openssl@3/lib/libcrypto.3.dylib" "/Applications/capster.app/Contents/Frameworks/libcrypto.3.dylib" capster
+# open "Package Example.command"
 
