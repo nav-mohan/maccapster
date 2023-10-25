@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
-
+#include "mslogger.hpp"
 class Client
 {
 public:

@@ -5,6 +5,7 @@
 #import <AVFoundation/AVFoundation.h>
 #include <iostream>
 #include <filesystem>
+#include "mslogger.hpp"
 
 @interface Speechable : NSObject 
 {
