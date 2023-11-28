@@ -13,8 +13,8 @@
 #define REMOTE_TEST_SERVER2 "167.99.183.228" 
 #define REMOTE_TEST_PORT "8080"
 
-#define LONDON_LAT "42.384"
-#define LONDON_LON "-81.836"
+#define LONDON_LAT "42.9849"
+#define LONDON_LON "-81.2453"
 
 #define STORAGE_LOCATION "/home/Users/nav/Downloads/audiofiles"
 
