@@ -6,8 +6,7 @@ void decode_and_write(std::string&& encodedData, const std::string& filename)
     const unsigned char *input = (const unsigned char *)data.c_str();
     int len = data.size();
     size_t outputSize = len*3/4;
-    MsLogger<INFO>::get_instance().log_to_stdout("DecodeUtil::decode_and_write() len=" + std::to_string(len) + " outputSize=" + std::to_string(outputSize));
-    MsLogger<INFO>::get_instance().log_to_file("DecodeUtil::decode_and_write() len=" + std::to_string(len) + " outputSize=" + std::to_string(outputSize));
+    basic_log("DecodeUtil::decode_and_write() len=" + std::to_string(len) + " outputSize=" + std::to_string(outputSize));
     char *out = (char*)malloc(outputSize + 5);
     char *result = out;
     signed char vals[4];
@@ -17,8 +16,7 @@ void decode_and_write(std::string&& encodedData, const std::string& filename)
         if(len < 4)
         {
             free(result);
-            MsLogger<INFO>::get_instance().log_to_stdout("DecodeUtil::decode_and_write() INVALID");
-            MsLogger<INFO>::get_instance().log_to_file("DecodeUtil::decode_and_write() INVALID");
+            basic_log("DecodeUtil::decode_and_write() INVALID");
             return; /* Invalid Base64 data */
         }
 

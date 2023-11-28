@@ -16,21 +16,10 @@ void XmlHandler::find_match(std::string &host)
     ptrdiff_t curPos = 0;
     while (iter != end)
     {
-        // std::cout << "iter_pos = " << iter->position() << std::endl;
-        // std::cout << "iter_len = " << iter->length() << std::endl;
         curPos = iter->position() - prevPos - prevLength;
-        // std::cout << curPos << "," << prevPos << "," << prevLength << std::endl;
         matches_.emplace(fullBuffer_[host].substr(curPos, iter->length()));
-
-        // std::cout << "\n++++++";
-        // for(int i = 0; i < 10; i++) std::cout << matches_.back()[i];
-        // std::cout << " ... ";    
-        // for(int i = 10; i >= 1; i--) std::cout << matches_.back()[matches_.back().size()-i];
-        // std::cout << "---------\n";
-
         fullBuffer_[host].erase(curPos, iter->length());
         boost::algorithm::trim(fullBuffer_[host]); // remove leading and trailing whitespaces
-        // std::cout << "LEFTOVER " << fullBuffer_[host].size() << "\n";
         prevLength = iter->length();
         prevPos = iter->position();
         iter++;
@@ -50,9 +39,10 @@ void XmlHandler::process_matches(std::string &host)
     }
     catch (const std::exception &e)
     {
-        std::cout << "################# " << e.what() << " #################" << std::endl;
-        std::cout << y << std::endl;
-        std::cout << "#############################################" << std::endl;
+        basic_log("##################################",ERROR);
+        basic_log(e.what(),ERROR);
+        basic_log(y,ERROR);
+        basic_log("##################################",ERROR);
         return;
     }
     boost::property_tree::ptree alert = tree.get_child("alert");
@@ -72,14 +62,9 @@ void XmlHandler::process_matches(std::string &host)
     // Not Actual?
     if (status.data() != "Actual")
     {
-        std::cout << host << " received probably test " << status.data() << std::endl;
+        basic_log( host + " received status " + status.data(),WARN);
         return;
     }
-
-    // Update
-    // if(msgType.data() == "Update") return;
-    
-    // std::cout << "RECEVIED ACTUAL DATA\n";
 
     // check history
     if (XmlHandler::check_update_history(identifier.data())) return;
@@ -92,7 +77,7 @@ void XmlHandler::process_matches(std::string &host)
     }
     if (infoNodes.size() == 0) // No <info> nodes
     {
-        std::cout << "NO INFO NODES\n";
+        basic_log( host + " NO INFO NODES",WARN);
         return;
     }
 
@@ -106,7 +91,7 @@ void XmlHandler::process_matches(std::string &host)
         std::string language;
         std::string urgency;
         std::string severity;
-        bool areaCovered = 1; // set this back to zero after you're done debugging...
+        bool areaCovered = 0;
         std::string headline;
         std::string description;
         std::string instruction;
@@ -153,9 +138,11 @@ void XmlHandler::process_matches(std::string &host)
                 }
             }
         }
-        if (!areaCovered) // <area> not relevant
-        {
-            std::cout << "AREA NOT COVERED\n";
+        // <area> not covered
+        // std::string areawarning = "LONDON ONTARIO DETECTED.";
+        if (!areaCovered) {
+            basic_log("AREA NOT COVERED",WARN);
+            // areawarning = "AREA NOT RELEVANT.";
             return;
         }
 
@@ -176,11 +163,11 @@ void XmlHandler::process_matches(std::string &host)
         }
         if (resourceNodes.size() == 0) // No <Resource> nodes. Perform TTS
         {
-            std::cout << "NO RESOURCES \n";
-            // need to clean up things like "#####" from the text
+            basic_log("NO RESOURCES");
             // if (severity != "Minor" || urgency != "Past")
             // {
                 audioFileName += ".wav";
+                // std::string ttsText(std::move(areawarning) + std::move(headline) + ". " + std::move(description) + std::move(instruction));
                 std::string ttsText(std::move(headline) + ". " + std::move(description) + std::move(instruction));
                 // std::cout << ttsText << std::endl;
                 enqueueTTS(std::move(ttsText), audioFileName, language);
@@ -188,7 +175,7 @@ void XmlHandler::process_matches(std::string &host)
         }
         else
         {
-            std::cout << "FOUND RESOURCES\n";
+            basic_log("FOUND RESOURCES");
             for (auto resource : resourceNodes)
             {
                 if (resource->second.find("resourceDesc") != resource->second.not_found())
@@ -223,14 +210,14 @@ void XmlHandler::process_matches(std::string &host)
                 audioFileName += ext;
                 if (resource->second.find("derefUri") != resource->second.not_found())
                 {
-                    std::cout << "BASE64 ENCODED AUDIO" << std::endl;
+                    basic_log("BASE64 ENCODED AUDIO");
                     encodedData = resource->second.get_child("derefUri").data();
                     decodeToFile(std::move(encodedData), audioFileName);
                 }
 
                 if (uri.substr(0, 4) == "http")
                 {
-                    std::cout << "DOWNLOAD REMOTE AUDIO" << std::endl;
+                    basic_log("DOWNLOAD REMOTE AUDIO");
                     enqueueDwnld(uri, audioFileName);
                 }
             }

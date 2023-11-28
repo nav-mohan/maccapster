@@ -10,8 +10,7 @@ bool GeoUtil::is_online(float x2, float y2, float x1, float y1, float x3, float 
     float d = ((x2-x1) * (y3-y1) - (x3-x1) * (y2-y1));
     if (fabs(d) < EPSILON*EPSILON) 
     {
-        MsLogger<INFO>::get_instance().log_to_stdout("GeoUtil::is_online() CLOSE!");
-        MsLogger<INFO>::get_instance().log_to_file("GeoUtil::is_online() CLOSE!");
+        basic_log("GeoUtil::is_online() CLOSE!");
         return true;
     }
     

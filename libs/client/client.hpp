@@ -1,9 +1,14 @@
 #if !defined(CLIENT_HPP)
 #define CLIENT_HPP
 
+// XmlHandler::regexpattern_ cannot handle a string of two alerts eg:
+        // <xml>
+        // <alert>...</alert>
+        // <xml>
+        // <alert>...</alert>
 // keep this < 1500. 
-// XmlHandler::regexpattern_ cannot handle "<xml><alert></alert><xml><alert></alert>"
 #define BUFFERSIZE 1600
+
 
 #include <boost/asio.hpp>
 #include <string>
@@ -21,7 +26,9 @@ public:
     ,   tempBuffer_(BUFFERSIZE,0)
     ,   pmxTimer_(ioc)
     {}
-    ~Client(){std::cout << "Client::~Client" << std::endl;}
+    ~Client(){
+        basic_log("Client::~Client " + host_);
+    }
 
     void inline setTimerFrequency(uint32_t heartbeat_freq){
         heartbeatFreq_ = heartbeat_freq;

@@ -9,8 +9,7 @@ DWQueue::DWQueue(boost::asio::io_context& ioc, std::function<void(std::string fi
 
 DWQueue::~DWQueue()
 {
-    MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::~DQQueue()");
-    MsLogger<INFO>::get_instance().log_to_file("DWQueue::~DQQueue()");
+    basic_log("DWQueue::~DQQueue()");
     std::unique_lock<std::mutex> lock(mut_);
     quit_.store(1);
     cond_.notify_one();
@@ -42,15 +41,13 @@ void DWQueue::Handler()
 //            printf("waiting...\n");
     }
     while(quit_.load()==0);
-    MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::Handler() exit while loop",WARN);
-    MsLogger<INFO>::get_instance().log_to_file("DWQueue::Handler() exit while loop",WARN);
+    basic_log("DWQueue::Handler() exit while loop",WARN);
 }
 
 
 void DWQueue::Push(const Downloadable& d)
 {
-    MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::Push() " + d.filename_,INFO);
-    MsLogger<INFO>::get_instance().log_to_file("DWQueue::Push() " + d.filename_,INFO);
+    basic_log("DWQueue::Push() " + d.filename_,INFO);
     std::lock_guard<std::mutex> lock(mut_);
     queue_.push(d);
     cond_.notify_one();
@@ -59,8 +56,7 @@ void DWQueue::Push(const Downloadable& d)
 
 void DWQueue::Push(Downloadable&& d)
 {
-    MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::Push() " + d.filename_,INFO);
-    MsLogger<INFO>::get_instance().log_to_file("DWQueue::Push() " + d.filename_,INFO);
+    basic_log("DWQueue::Push() " + d.filename_,INFO);
     std::lock_guard<std::mutex> lock(mut_);
     queue_.push(std::move(d));
     cond_.notify_one();
@@ -93,8 +89,7 @@ void DWQueue::Download(const Downloadable& d)
     stream.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both,ec);
     if(ec && ec != boost::beast::errc::not_connected)
     {
-        MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::Download() Shutdown Failed " + d.filename_,WARN);
-        MsLogger<INFO>::get_instance().log_to_file("DWQueue::Download() Shutdown Failed " + d.filename_,WARN);
+        basic_log("DWQueue::Download() Shutdown Failed " + d.filename_,WARN);
         return;
     }
 
@@ -115,8 +110,7 @@ void DWQueue::SecureDownload(const Downloadable d)
     if(!SSL_set_tlsext_host_name(stream.native_handle(), d.host_.c_str()))
     {
         boost::beast::error_code ec{static_cast<int>(::ERR_get_error()), boost::asio::error::get_ssl_category()};
-        MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::SecureDownload() Failed to get SNI Hostname: " + ec.what(),ERROR);
-        MsLogger<INFO>::get_instance().log_to_file("DWQueue::SecureDownload() Failed to get SNI Hostname: " + ec.what(),ERROR);
+        basic_log("DWQueue::SecureDownload() Failed to get SNI Hostname: " + ec.what(),ERROR);
         return;
     }
 
@@ -141,8 +135,7 @@ void DWQueue::SecureDownload(const Downloadable d)
     stream.shutdown(ec);
     if(ec && ec != boost::asio::error::eof)
     {
-        MsLogger<INFO>::get_instance().log_to_stdout("DWQueue::SecureDownload() SSL Shutdown failed: " + ec.what(),ERROR);
-        MsLogger<INFO>::get_instance().log_to_file("DWQueue::SecureDownload() SSL Shutdown failed: " + ec.what(),ERROR);
+        basic_log("DWQueue::SecureDownload() SSL Shutdown failed: " + ec.what(),ERROR);
         return;
     }
 

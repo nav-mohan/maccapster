@@ -26,8 +26,7 @@ void PBQueue::Handler()
 
 void PBQueue::Push(const std::string& f)
 {
-    MsLogger<INFO>::get_instance().log_to_stdout("PBQueue::Push() " + f);
-    MsLogger<INFO>::get_instance().log_to_file("PBQueue::Push() " + f);
+    basic_log("PBQueue::Push() " + f);
     std::lock_guard<std::mutex> lock(mut_);
     if(!queue_.size() && !busy_.load()) PlayFirst();
     queue_.push(f);
@@ -36,8 +35,7 @@ void PBQueue::Push(const std::string& f)
 
 PBQueue::~PBQueue()
 {
-    MsLogger<INFO>::get_instance().log_to_stdout("PBQueue::~PBQueue()");
-    MsLogger<INFO>::get_instance().log_to_file("PBQueue::~PBQueue()");
+    basic_log("PBQueue::~PBQueue()");
     std::unique_lock<std::mutex> lock(mut_);
     quit_.store(1);
     cond_.notify_one();

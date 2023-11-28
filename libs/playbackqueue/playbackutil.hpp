@@ -1,6 +1,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <string>
 #include <iostream>
+#include "mslogger.hpp"
 
 #define READ_BYTES 1024
 #define NBUFFERS 3
@@ -71,7 +72,7 @@ OSStatus PBUtil::CopyEncoderCookie(AudioFileID inFile, AudioQueueRef outAQ)
         err = AudioQueueSetProperty(outAQ, kAudioQueueProperty_MagicCookie, magicCookie, propsize);
         if(err != noErr) {free(magicCookie);return err;}
         free(magicCookie);
-        printf("COPIED COOKIE\n");
+        // printf("COPIED COOKIE\n");
     }
     return noErr;
 }
@@ -91,7 +92,12 @@ void PBUtil::Callback(void *inUserData, AudioQueueRef outAQ, AudioQueueBufferRef
         &nPkts,
         outAQBuf->mAudioData
     );
-    if(err != noErr) {printf("AudioFileReadPacketData Faild %d:%s\n",err,strerror(err)); return;}
+    if(err != noErr) 
+    {
+        // printf("AudioFileReadPacketData Faild %d:%s\n",err,strerror(err)); 
+        basic_log("PBUtil::Callback AudioFileReadPacketData Failed - " + std::to_string(err) + std::string(strerror(err)));
+        return;
+    }
     if(nPkts > 0)
     {
         outAQBuf->mAudioDataByteSize = nBytes;
@@ -100,13 +106,23 @@ void PBUtil::Callback(void *inUserData, AudioQueueRef outAQ, AudioQueueBufferRef
             (aplayer->pktDesc_ ? nPkts : 0),
             aplayer->pktDesc_
         );
-        if(err != noErr) {printf("AudioQueueEnqueueBuffer Faild %d:%s\n",err,strerror(err)); return;}
+        if(err != noErr) 
+        {
+            // printf("AudioQueueEnqueueBuffer Faild %d:%s\n",err,strerror(err)); 
+            basic_log("PBUtil::Callback AudioQueueEnqueueBuffer Failed - " + std::to_string(err) + std::string(strerror(err)));
+            return;
+        }
+        
         aplayer->pktPos_ += nPkts;
     }
     else
     {
         err = AudioQueueStop(outAQ, false);
-        if(err != noErr) {printf("AudioQueueStop Faild %d:%s\n",err,strerror(err)); return;}
+        if(err != noErr) 
+        {
+            basic_log("PBUtil::Callback AudioQueueStop Failed - " + std::to_string(err) + std::string(strerror(err)));
+            return;
+        }
         aplayer->isDone_ = true;
     }
 }
@@ -119,7 +135,8 @@ OSStatus PBUtil::OpenFile(const std::string& filepath)
     CFRelease(fileURL);
     if(err != noErr) 
     {
-        printf("Failed to open file %d:%s\n",err,strerror(err));
+        // printf("Failed to open file %d:%s\n",err,strerror(err));
+        basic_log("PBUtil::OpenFile Failed to open file - " + std::to_string(err) + std::string(strerror(err)));
         return err;
     }
     
@@ -136,7 +153,8 @@ OSStatus PBUtil::OpenFile(const std::string& filepath)
     UInt32 bufByteSize;
     err = CalculateBytesForDuration(audioPlayer_.inFile_, dataFormat, DURATION, &bufByteSize, &audioPlayer_.numPktsToRead_);
     if(err != noErr) {printf("Failed to CalculateBytesForDuration %d:%s\n",err,strerror(err));return err;}
-    printf("Playback duration %d: %d BYTES",DURATION, bufByteSize);
+    // printf("Playback duration %d: %d BYTES",DURATION, bufByteSize);
+    basic_log("PBUtil::OpenFile DURATION:"+std::to_string(DURATION) + " SIZE:"+std::to_string(bufByteSize));
 
     bool isFormatVBR = (dataFormat.mBytesPerPacket == 0 || dataFormat.mFramesPerPacket == 0);
     if(isFormatVBR)

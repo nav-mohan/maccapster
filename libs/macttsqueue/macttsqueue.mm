@@ -32,9 +32,7 @@
     NSString* versionStr = [[NSProcessInfo processInfo] operatingSystemVersionString];
     NSOperatingSystemVersion versionOS = [[NSProcessInfo processInfo] operatingSystemVersion];
         
-    MsLogger<DEBUG>::get_instance().log_to_stdout("MacTTSQueue::init " + std::to_string(versionOS.majorVersion) + "." + std::to_string(versionOS.minorVersion) + "." + std::to_string(versionOS.patchVersion));
-    MsLogger<INFO>::get_instance().log_to_file("MacTTSQueue::init " + std::to_string(versionOS.majorVersion) + "." + std::to_string(versionOS.minorVersion) + "." + std::to_string(versionOS.patchVersion),DEBUG);
-    // NSLog(@"%ld | %ld | %ld",versionOS.majorVersion, versionOS.minorVersion, versionOS.patchVersion);
+    basic_log("MacTTSQueue::init " + std::to_string(versionOS.majorVersion) + "." + std::to_string(versionOS.minorVersion) + "." + std::to_string(versionOS.patchVersion),DEBUG);
     _majorVersion = versionOS.majorVersion;
 
     self = [super init];
@@ -47,8 +45,8 @@
 }
 
 - (void)enqueueText:(Speechable *)sp {
-    MsLogger<INFO>::get_instance().log_to_stdout("MacTTSQueue::enqueueText " + std::string(sp->filename_.UTF8String));
-    MsLogger<INFO>::get_instance().log_to_file("MacTTSQueue::enqueueText " + std::string(sp->filename_.UTF8String));
+    
+    basic_log("MacTTSQueue::enqueueText " + std::string(sp->filename_.UTF8String));
     [_condition lock];
     [_queue addObject:sp];
     [_condition unlock];
@@ -63,8 +61,8 @@
         NSString *text       = [_queue.firstObject->text_ copy];
         NSString *filename   = [_queue.firstObject->filename_ copy];
         NSString *language   = [_queue.firstObject->language_ copy];
-        MsLogger<INFO>::get_instance().log_to_stdout("MacTTSQueue::startProcessingQueue " + std::string(filename.UTF8String));
-        MsLogger<INFO>::get_instance().log_to_file("MacTTSQueue::startProcessingQueue " + std::string(filename.UTF8String));
+        
+        basic_log("MacTTSQueue::startProcessingQueue " + std::string(filename.UTF8String));
         [_queue removeObjectAtIndex:0];
         [_condition unlock];
         
@@ -90,8 +88,8 @@
 {
     char *data = (char*)buffer.audioBufferList->mBuffers->mData;
     uint32_t bufSize = buffer.audioBufferList->mBuffers->mDataByteSize;
-    MsLogger<INFO>::get_instance().log_to_stdout("MacTTSQueue::audioBufferCallback " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
-    MsLogger<INFO>::get_instance().log_to_file("MacTTSQueue::audioBufferCallback " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
+    
+    basic_log("MacTTSQueue::audioBufferCallback " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
     if(!filename || !_outfile) // create new file
     {
         _filename = filename;
@@ -117,8 +115,7 @@
     }
     else 
     {
-        MsLogger<INFO>::get_instance().log_to_stdout("Audio buffer format is nil. Lets hope the default values based on _majorVersion will work " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
-        MsLogger<INFO>::get_instance().log_to_file("Audio buffer format is nil. Lets hope the default values based on _majorVersion will work " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
+        basic_log("Audio buffer format is nil. Lets hope the default values based on _majorVersion will work " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
     }
 
     fseek(_outfile,0,0);

@@ -26,34 +26,22 @@ UserSettings settings;
 // std::ofstream capturedOutput("output.txt");
 int main(int argc, char *argv[])
 {
-    // std::cout << "Press <RETURN> to start" << std::endl;
-    // getchar();
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURATION");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURATION",DEBUG);
-
-    MsLogger<DEBUG>::get_instance().log_to_stdout("SERVER1 " + settings.server1_ + ":" + settings.port1_);
-    MsLogger<INFO>::get_instance().log_to_file("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
-
-    MsLogger<DEBUG>::get_instance().log_to_stdout("SERVER2 " + settings.server2_ + ":" + settings.port2_);
-    MsLogger<INFO>::get_instance().log_to_file("SERVER2 " + settings.server2_ + ":" + settings.port2_,DEBUG);
-
-    MsLogger<DEBUG>::get_instance().log_to_stdout("COORDINATES " + settings.latitude_ + "," + settings.longitude_);
-    MsLogger<INFO>::get_instance().log_to_file("COORDINATES " + settings.latitude_ + "," + settings.longitude_,DEBUG);
+    basic_log("CONFIGURATION",DEBUG);
+    basic_log("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
+    basic_log("SERVER2 " + settings.server2_ + ":" + settings.port2_,DEBUG);
+    basic_log("COORDINATES " + settings.latitude_ + "," + settings.longitude_,DEBUG);
 
 
     clientConn1.set_endpoint(settings.server1_,settings.port1_);
     clientConn1.setTimerFrequency(atof(settings.heartbeatFreq_.c_str()));
-    MsLogger<DEBUG>::get_instance().log_to_stdout("SET ENDPOINT 1");
-    MsLogger<INFO>::get_instance().log_to_file("SET ENDPOINT 1",DEBUG);
+    basic_log("SET ENDPOINT 1",DEBUG);
 
     clientConn2.set_endpoint(settings.server2_,settings.port2_);
     clientConn2.setTimerFrequency(atof(settings.heartbeatFreq_.c_str()));
-    MsLogger<DEBUG>::get_instance().log_to_stdout("SET ENDPOINT 2");
-    MsLogger<INFO>::get_instance().log_to_file("SET ENDPOINT 2",DEBUG);
+    basic_log("SET ENDPOINT 2",DEBUG);
 
     geoUtil.set_station(settings.latitude_,settings.longitude_);
-    MsLogger<DEBUG>::get_instance().log_to_stdout("SET LAT/LON");
-    MsLogger<INFO>::get_instance().log_to_file("SET LAT/LON ",DEBUG);
+    basic_log("SET LAT/LON ",DEBUG);
 
     PBQueue playbackQueue;
     PBUtil playbackUtil;
@@ -67,8 +55,7 @@ int main(int argc, char *argv[])
     playbackQueue.Play = [&](const std::string f){
         playbackUtil.OpenFile(f);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED PLAYBACKQUEUE");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED PLAYBACKQUEUE",DEBUG);
+    basic_log("CONFIGURED PLAYBACKQUEUE",DEBUG);
 
     std::vector<std::string>certfiles = {getResourcePath("cacert.pem")};
     std::string certbuffer;
@@ -82,22 +69,18 @@ int main(int argc, char *argv[])
         fclose(certfile);
     }
     auto lambda = [&](std::string filename){
-        MsLogger<INFO>::get_instance().log_to_stdout("DOWNLOAD COMPLETED " + filename);
-        MsLogger<INFO>::get_instance().log_to_file("DOWNLOAD COMPLETED " + filename);
+        basic_log("DOWNLOAD COMPLETED " + filename);
         playbackQueue.Push(filename);
     };
     DWQueue downloadQueue(ioContext,std::move(lambda),std::move(certbuffer));
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED DOWNLOADQUEUE");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED DOWNLOADQUEUE",DEBUG);
+    basic_log("CONFIGURED DOWNLOADQUEUE",DEBUG);
 
     xmlHandler.decodeToFile = [&](std::string&& encodedData, const std::string& filename){
         decode_and_write(std::move(encodedData),filename);
-        MsLogger<INFO>::get_instance().log_to_stdout("DECODING COMPLETED " + filename);
-        MsLogger<INFO>::get_instance().log_to_file("DECODING COMPLETED " + filename);
+        basic_log("DECODING COMPLETED " + filename);
         playbackQueue.Push(filename);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED XMLHANDLER DECODER");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED XMLHANDLER DECODER",DEBUG);
+    basic_log("CONFIGURED XMLHANDLER DECODER",DEBUG);
     
     xmlHandler.enqueueDwnld = [&](const std::string& uri, const std::string& filename){
         Downloadable d;
@@ -105,25 +88,21 @@ int main(int argc, char *argv[])
         ParseURL(uri,d.host_,d.target_,d.port_);
         downloadQueue.Push(d);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED XMLHANDLER ENQUEUDW");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED XMLHANDLER ENQUEUDW",DEBUG);
+    basic_log("CONFIGURED XMLHANDLER ENQUEUDW",DEBUG);
 
     xmlHandler.checkArea = [&](std::string &&boundary){
         geoUtil.set_alertArea(std::move(boundary));
         return geoUtil.is_inside();
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED XMLHANDLER CHECKAREA");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED XMLHANDLER CHECKAREA",DEBUG);
+    basic_log("CONFIGURED XMLHANDLER CHECKAREA",DEBUG);
 
     TextToSpeechQueue *ttsq = [[TextToSpeechQueue alloc]init];
     PBQueue *pbq = &playbackQueue;
     ttsq->onComplete = ^(NSString* filename){
-        MsLogger<INFO>::get_instance().log_to_stdout("TTS JOB DONE " + std::string(filename.UTF8String));
-        MsLogger<INFO>::get_instance().log_to_file("TTS JOB DONE " + std::string(filename.UTF8String));
+        basic_log("TTS JOB DONE " + std::string(filename.UTF8String));
         pbq->Push([filename UTF8String]);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED XMLHANDLER TTSQUEUE");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED XMLHANDLER TTSQUEUE",DEBUG);
+    basic_log("CONFIGURED XMLHANDLER TTSQUEUE",DEBUG);
 
     xmlHandler.enqueueTTS = [&](std::string&& ttsText, std::string& filename, const std::string& language){
         std::string output = std::move(prepareTextForTTS(std::move(ttsText)));
@@ -142,25 +121,22 @@ int main(int argc, char *argv[])
         [ttsq enqueueText : sp];
         [sp release];
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED XMLHANDLER ENQUEUETTS");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED XMLHANDLER ENQUEUETTS",DEBUG);
+    basic_log("CONFIGURED XMLHANDLER ENQUEUETTS",DEBUG);
 
     clientConn1.appendXml = [&](std::string& host, const std::vector<char>&& tempBuffer, size_t size){
         xmlHandler.append(host,std::move(tempBuffer),size);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED CLIENTCONN1 APPENDXML");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED CLIENTCONN1 APPENDXML",DEBUG);
+    basic_log("CONFIGURED CLIENTCONN1 APPENDXML",DEBUG);
     
     clientConn2.appendXml = [&](std::string& host, const std::vector<char>&& tempBuffer, size_t size){
         xmlHandler.append(host,std::move(tempBuffer),size);
     };
-    MsLogger<DEBUG>::get_instance().log_to_stdout("CONFIGURED CLIENTCONN2 APPENDXML");
-    MsLogger<INFO>::get_instance().log_to_file("CONFIGURED CLIENTCONN2 APPENDXML",DEBUG);
+    basic_log("CONFIGURED CLIENTCONN2 APPENDXML",DEBUG);
 
     clientConn1.start();
-    MsLogger<INFO>::get_instance().log_to_stdout("STARTED CLIENTCONN1");
-    MsLogger<INFO>::get_instance().log_to_file("STARTED CLIENTCONN1");
-    // clientConn2.start();
+    clientConn2.start();
+    basic_log("STARTED CLIENT CONNECTIONS");
+    // exit(1);
     std::thread t1([&](){
         ioContext.run();
     });    

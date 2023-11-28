@@ -7,6 +7,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <sys/ioctl.h> //ioctl() call defenitions
+#include "mslogger.hpp"
 
 #define PORT_TTY ("/dev/tty.usbserial-0001ED15")
 #define PORT_CU ("/dev/cu.usbserial-0001ED15")

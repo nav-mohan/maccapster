@@ -8,14 +8,12 @@ void RS232Util::open_pin()
     lock_ = flock(fd_, LOCK_EX | LOCK_NB);
     if(lock_ != 0)
     {
-        printf("Port is busy. You could try disconnecting and reconnecting the USB-RS232 connector\n");
-        printf("You might also have to kill any processes that are currently using that port\n");
+        basic_log("Port is busy. You could try disconnecting and reconnecting the USB-RS232 connector. You might also have to kill any processes that are currently using that port");
     }
 }
 
 void RS232Util::set_pin()
 {
-    // std::cout << "SETTING PIN! " << lock_ << std::endl;
     if(lock_!=0)
         open_pin();
 
@@ -24,13 +22,11 @@ void RS232Util::set_pin()
 
 void RS232Util::clear_pin()
 {
-    // std::cout << "CLEARING PIN!\n";
     ioctl(fd_, TIOCCDTR, &flagRTS_); // Clear DTR pin
 }
 
 void RS232Util::close_pin()
 {
-    // std::cout << "CLOSING PIN!\n";
     close(fd_); // this sets the DTR pin back to zero as well.
     lock_ = flock(fd_, LOCK_UN);
 }
