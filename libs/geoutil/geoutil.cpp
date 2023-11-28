@@ -8,7 +8,12 @@ bool GeoUtil::is_online(float x2, float y2, float x1, float y1, float x3, float 
     if((y2 < y1) && (y2 < y3)) return false; 
     
     float d = ((x2-x1) * (y3-y1) - (x3-x1) * (y2-y1));
-    if (fabs(d) < EPSILON*EPSILON) {std::cout << "CLOSE\n" ; return true;}
+    if (fabs(d) < EPSILON*EPSILON) 
+    {
+        MsLogger<INFO>::get_instance().log_to_stdout("GeoUtil::is_online() CLOSE!");
+        MsLogger<INFO>::get_instance().log_to_file("GeoUtil::is_online() CLOSE!");
+        return true;
+    }
     
     return false;
 }

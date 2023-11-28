@@ -1,6 +1,7 @@
 message("BUILDING DOWNLOADQUEUE")
 
 add_library(downloadqueue downloadqueue.cpp)
+target_include_directories(downloadqueue PUBLIC ${CMAKE_SOURCE_DIR}/libs/mslogger)
 
 find_package(Boost REQUIRED COMPONENTS headers)
 

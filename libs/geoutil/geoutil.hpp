@@ -6,6 +6,8 @@
 #include <regex>
 #include <math.h>
 
+#include "mslogger.hpp"
+
 #define EPSILON 0.4
 #define LARGE_FLOAT 99999.9f
 

@@ -13,6 +13,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <algorithm>
+#include "mslogger.hpp"
 
 // this REGEX_PATTERN cannot handle array of matches "<xml><alert></alert><xml><alert></alert>"
 // for the timebeing a workaround is to keep Client::BUFFER_SIZE < 1500 (size of Heartbeat)
@@ -41,7 +42,8 @@ private:
     inline static std::mutex mut_;
     inline static bool check_update_history(std::string h)
     {
-        std::cout << "CHECKING HISTORY " << h << std::endl;
+        MsLogger<INFO>::get_instance().log_to_stdout("CHECKING HISTORY " + h,INFO);
+        MsLogger<INFO>::get_instance().log_to_file("CHECKING HISTORY " + h,INFO);
         std::lock_guard<std::mutex> lk(XmlHandler::mut_);
         for(auto it = history_.rbegin(); it != history_.rend(); it++)
             if(h == *it)

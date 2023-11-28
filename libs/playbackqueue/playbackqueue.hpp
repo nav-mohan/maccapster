@@ -9,6 +9,8 @@
 #include <atomic>
 #include <functional>
 
+#include "mslogger.hpp"
+
 struct PBQueue
 {
     std::queue<std::string> queue_;

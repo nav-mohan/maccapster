@@ -20,6 +20,8 @@
 
 #include <regex>
 
+#include "mslogger.hpp"
+
 struct Downloadable
 {
     std::string host_;

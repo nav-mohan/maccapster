@@ -26,7 +26,8 @@ void PBQueue::Handler()
 
 void PBQueue::Push(const std::string& f)
 {
-    std::cout << "PBQueue::Push " << f << std::endl;
+    MsLogger<INFO>::get_instance().log_to_stdout("PBQueue::Push() " + f);
+    MsLogger<INFO>::get_instance().log_to_file("PBQueue::Push() " + f);
     std::lock_guard<std::mutex> lock(mut_);
     if(!queue_.size() && !busy_.load()) PlayFirst();
     queue_.push(f);
@@ -35,12 +36,11 @@ void PBQueue::Push(const std::string& f)
 
 PBQueue::~PBQueue()
 {
+    MsLogger<INFO>::get_instance().log_to_stdout("PBQueue::~PBQueue()");
+    MsLogger<INFO>::get_instance().log_to_file("PBQueue::~PBQueue()");
     std::unique_lock<std::mutex> lock(mut_);
-    std::cout << "PBQueue::~PBQueue" << std::endl;
     quit_.store(1);
     cond_.notify_one();
     lock.unlock();
-    std::cout << "JOINIGN " << quit_.load() << std::endl;
     if(workerThread_.joinable()) workerThread_.join();
-    std::cout << "PBQueue::~PBQueue" << std::endl;
 }
