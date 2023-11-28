@@ -46,7 +46,7 @@
 
 - (void)enqueueText:(Speechable *)sp {
     
-    basic_log("MacTTSQueue::enqueueText " + std::string(sp->filename_.UTF8String));
+    // basic_log("MacTTSQueue::enqueueText " + std::string(sp->filename_.UTF8String));
     [_condition lock];
     [_queue addObject:sp];
     [_condition unlock];
@@ -89,7 +89,7 @@
     char *data = (char*)buffer.audioBufferList->mBuffers->mData;
     uint32_t bufSize = buffer.audioBufferList->mBuffers->mDataByteSize;
     
-    basic_log("MacTTSQueue::audioBufferCallback " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
+    // basic_log("MacTTSQueue::audioBufferCallback " + std::string(filename.UTF8String) + " " + std::to_string(bufSize));
     if(!filename || !_outfile) // create new file
     {
         _filename = filename;

@@ -9,8 +9,8 @@
 #include <fstream>
 #include "utilities.h"
 
-#define DEFAULT_BUFFER_SIZE 1024
-#define DEFAULT_LOGROTATE_SIZE 8192
+#define DEFAULT_BUFFER_SIZE 1024 // 1KB
+#define DEFAULT_LOGROTATE_SIZE 1*1024*1024 // 1MB
 
 template <LEVELS LOGLEVEL=INFO>
 class MsLogger : public std::streambuf
@@ -23,6 +23,7 @@ private: // member variables
     static std::size_t bufferSize_;
     static std::ofstream file_;
     static uint16_t fileindex_;
+    static std::string fileDate_;
     static std::string filepath_;
     void write_to_file();
     static void generate_filename();
@@ -147,14 +148,14 @@ void MsLogger<LOGLEVEL>::generate_filename()
         filepath_ = std::move(generate_date()+(fileindex_>9?"_":"_0") + std::to_string(fileindex_) + ".log");
         break;
     }
-    std::cout << "GENERATED FILEPATH " << filepath_ << std::endl;
+    // std::cout << "GENERATED FILEPATH " << filepath_ << std::endl;
 }
 
 template <LEVELS LOGLEVEL>
 MsLogger<LOGLEVEL>::MsLogger() 
 {
     buffer_ = (char*)malloc(bufferSize_);
-    printf("Constructing %p (%ld,%d)\n",this,bufferSize_,LOGLEVEL);
+    // printf("Constructing %p (%ld,%d)\n",this,bufferSize_,LOGLEVEL);
     generate_filename();
     setp(buffer_,buffer_+bufferSize_);
 }
@@ -162,7 +163,7 @@ MsLogger<LOGLEVEL>::MsLogger()
 template <LEVELS LOGLEVEL>
 MsLogger<LOGLEVEL>::~MsLogger()
 {
-    printf("Deleting %p (%ld,%d)\n",this,bufferSize_,LOGLEVEL);
+    // printf("Deleting %p (%ld,%d)\n",this,bufferSize_,LOGLEVEL);
     std::lock_guard<std::mutex> blk(mutBuffer_);
     if(buffer_ != nullptr)
     {
@@ -240,22 +241,21 @@ void MsLogger<LOGLEVEL>::write_to_file()
         }
         else break;
     }
-    log_to_stdout("WRITING TO FILE " + filepath_,ERROR);
+    // log_to_stdout("WRITING TO FILE " + filepath_,ERROR);
 
     if(!std::__fs::filesystem::exists(filepath_) || !file_.is_open())
     {
-        log_to_stdout("CREATING AND OPENING " + filepath_,ERROR);
+        // log_to_stdout("CREATING AND OPENING " + filepath_,ERROR);
         file_.close();
         file_.open(filepath_,std::ios::app);
     }
-    log_to_stdout("FILE " + filepath_ + " IS READY",ERROR);
-
-    log_to_stdout("CURRENT FILEPATH = " + filepath_ ,ERROR);
-    log_to_stdout("FILESIZE = " + std::to_string(std::__fs::filesystem::file_size(filepath_)),ERROR);
-    log_to_stdout("BUFSIZE = " + std::to_string(pptr()-pbase()),ERROR);
+    // log_to_stdout("FILE " + filepath_ + " IS READY",ERROR);
+    // log_to_stdout("CURRENT FILEPATH = " + filepath_ ,ERROR);
+    // log_to_stdout("FILESIZE = " + std::to_string(std::__fs::filesystem::file_size(filepath_)),ERROR);
+    // log_to_stdout("BUFSIZE = " + std::to_string(pptr()-pbase()),ERROR);
     if(std::__fs::filesystem::file_size(filepath_) > DEFAULT_LOGROTATE_SIZE)
     {
-        log_to_stdout(filepath_ + "CREATING NEW FILE = " + std::to_string(fileindex_),ERROR);
+        // log_to_stdout(filepath_ + "CREATING NEW FILE = " + std::to_string(fileindex_),ERROR);
         file_.close();
         fileindex_++;
         generate_filename();
@@ -263,19 +263,25 @@ void MsLogger<LOGLEVEL>::write_to_file()
     }
 
     file_.write(buffer_,pptr()-pbase());
+    file_.flush();
     // check goodbits, errorbits, failbits, 
     if(file_.good()) 
     {
-        log_to_stdout("GOODBIT " + std::to_string(file_.goodbit) + " WROTE " + std::to_string(pptr()-pbase()) ,INFO);
+        // log_to_stdout("GOODBIT " + std::to_string(file_.goodbit) + " WROTE " + std::to_string(pptr()-pbase()) ,INFO);
         return;
     }
-    if(file_.bad()) 
-        log_to_stdout("BADBIT " + std::to_string(file_.badbit),ERROR);
-    if(file_.fail()) 
-        log_to_stdout("FAILBIT " + std::to_string(file_.failbit),WARN);
-    if(file_.eof()) 
-        log_to_stdout("EOFBIT " + std::to_string(file_.eofbit),INFO);
+    if(file_.bad()) return;
+        // log_to_stdout("BADBIT " + std::to_string(file_.badbit),ERROR);
+    if(file_.fail()) return;
+        // log_to_stdout("FAILBIT " + std::to_string(file_.failbit),WARN);
+    if(file_.eof()) return;
+        // log_to_stdout("EOFBIT " + std::to_string(file_.eofbit),INFO);
+}
 
+static void basic_log(std::string msg, LEVELS l=INFO)
+{
+    MsLogger<INFO>::get_instance().log_to_file(msg,l);
+    // MsLogger<INFO>::get_instance().log_to_stdout(msg,l);
 }
 
 #endif // MsLogger_H

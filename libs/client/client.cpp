@@ -78,7 +78,7 @@ void Client::DoRead()
             }
             else
             {
-                basic_log("Client::DoRead RESET TIMER",DEBUG);
+                // basic_log("Client::DoRead RESET TIMER",DEBUG);
                 // pmxTimer_.expires_after(std::chrono::seconds(heartbeatFreq_));
                 pmxTimer_.expires_from_now(boost::posix_time::seconds(heartbeatFreq_));
                 // std::cout.write(tempBuffer_.data(),size);
@@ -93,13 +93,13 @@ void Client::DoRead()
 
 void Client::OnTimeout(const boost::system::error_code ec)
 {
-    basic_log("Client::OnTimeout TIMER TIMEDOUT" + ec.what(),DEBUG);
+    // basic_log("Client::OnTimeout TIMER TIMEDOUT" + ec.what(),DEBUG);
     // const uint32_t timeLeft = pmxTimer_.expires_from_now().count()/1000000000;
     // std::cout << "TIME LEFT " << timeLeft << std::endl;
     // if(timeLeft > 0) return;
     if(!tcpSocket_.is_open())  // not sure if this is useful
     {
-        basic_log("Client::OnTimeout TIMER TIMED OUT WITH SOCKET CLOSED" + ec.what(),DEBUG);
+        // basic_log("Client::OnTimeout TIMER TIMED OUT WITH SOCKET CLOSED" + ec.what(),DEBUG);
         // DoDisconnect();
         // return DoConnect(); 
     }
@@ -115,7 +115,7 @@ void Client::OnTimeout(const boost::system::error_code ec)
     // this is a premature abort - we have to redeclare the onTimeOut callback
     if(ec == boost::asio::error::operation_aborted) // not sure when all this happens - but it happens when client resets them timer
     {
-        basic_log("Client::OnTimeout operation_aborted " + ec.what(),DEBUG);
+        // basic_log("Client::OnTimeout operation_aborted " + ec.what(),DEBUG);
         pmxTimer_.expires_from_now(boost::posix_time::seconds(heartbeatFreq_));
         pmxTimer_.async_wait([this](const boost::system::error_code ec){OnTimeout(ec);}); // this seems to trigger an infinite loop
     }
