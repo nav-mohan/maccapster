@@ -1,0 +1,636 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+    <identifier>surn:oid:2.49.0.1.124.1001147635.2023</identifier>
+    <sender>cap-pac@canada.ca</sender>
+    <sent>2023-11-01T00:56:53-00:00</sent>
+    <status>Actual</status>
+    <msgType>Alert</msgType>
+    <source>Env. Can. - Can. Met. Ctr. – Montréal</source>
+    <scope>Public</scope>
+    <code>profile:CAP-CP:0.4</code>
+    <code>layer:SOREM:1.0</code>
+    <code>layer:EC-MSC-SMC:1.0</code>
+    <code>layer:EC-MSC-SMC:1.1</code>
+    <code>layer:SOREM:2.0</code>
+    <note>Service Notice - August 2023: The Environment and Climate Change Canada (ECCC) CAP Service undergoes changes from time to time as the business of alerting evolves. For 2023, there are no more planned changes, however for 2024, changes are expected to include... 1) expansion of the Storm Surge Program to include most of Canada, 2) the use of threat based dynamic polygons for convective weather threats, and 3) other minor improvements and corrections. For more information on these changes, you are invited to subscribe to the following mailing list: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info | Notification de service - août 2023: Le service du PAC d’Environnement et Changement climatique Canada (ECCC) subit périodiquement des changements à mesure que le système d’alerte évolue. Pour 2023, il n’y a pas d’autres changements prévus. Cependant, pour 2024, il y aura des changements incluant... 1) une expansion du programme d'onde de tempête afin de couvrir la majeure partie du Canada, 2) l’utilisation de polygones de menace dynamiques pour les menaces convectives météorologiques, et 3) d’autres améliorations et corrections mineures. Pour plus d’informations sur ces changements, vous êtes invités à vous inscrire à la liste de diffusion suivante: http://lists.cmc.ec.gc.ca/mailman/listinfo/dd_info</note>
+    <references />
+    <info>
+        <language>en-CA</language>
+        <category>Met</category>
+        <event>weather</event>
+        <responseType>Monitor</responseType>
+        <urgency>Future</urgency>
+        <severity>Moderate</severity>
+        <certainty>Possible</certainty>
+        <audience>general public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>weather</value>
+        </eventCode>
+        <effective>2023-11-01T00:41:52-00:00</effective>
+        <expires>2023-11-01T16:31:31-00:00</expires>
+        <senderName>Environment Canada</senderName>
+        <headline>weather advisory in effect</headline>
+        <description>
+Winter weather travel advisory in effect for tonight and Wednesday morning.
+
+Hazards:
+Lake effect snow, heavy at times. Local snowfall amounts of 5 to 15 cm.
+Reduced visibility in heavy snow.
+
+Timing:
+Tonight into Wednesday morning.
+
+Discussion:
+This will be the first accumulating lake effect snow event of the season for most areas. Snow may be mixed with rain at times this evening before quickly becoming all snow. Snowfall accumulations may locally approach 15 cm by late Wednesday morning in the most persistent snow bands. The morning commute on Wednesday will likely be impacted, including portions of Highway 402 between Sarnia and north of Strathroy. Lake effect snow should remain primarily west of the City of London.
+
+###
+
+Motorists should expect hazardous winter driving conditions and adjust travel plans accordingly. Visibility may be suddenly reduced at times in heavy snow. Snow squalls cause weather conditions to vary considerably; changes from clear skies to heavy snow within just a few kilometres are common.
+
+For road conditions and other traveller information from the Ministry of Transportation, visit https://www.ontario.ca/511, https://www.twitter.com/511Ontario, or call 5-1-1.
+
+Please continue to monitor alerts and forecasts issued by Environment Canada. To report severe weather, send an email to ONstorm@ec.gc.ca or tweet reports using #ONStorm.
+</description>
+        <instruction>
+If visibility is reduced while driving, slow down, watch for tail lights ahead and be prepared to stop.
+</instruction>
+        <web>https://weather.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>advisory</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20231101003131227/WZ_86_87_CWTO/WHA/2621337640592192202311010503_WZ_86_87_CWTO/actual/en_proper_complete_c-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:9966 M:55543 C:66838</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>weather advisory</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>Southern Ontario</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WZ_86_87_CWTO</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value>041310,041320,041510,041520,046330</value>
+        </parameter>
+        <area>
+            <areaDesc>Watford - Pinery Park - Eastern Lambton County</areaDesc>
+            <polygon>42.936,-81.7805 42.8161,-81.79 42.8121,-81.7958 42.8258,-81.8144 42.8429,-81.8353 42.7535,-81.8316 42.651,-81.8354 42.6495,-81.9263 42.6506,-82.008 42.6419,-82.0061 42.6279,-82.0112 42.6246,-82.0234 42.6237,-82.0638 42.627,-82.1003 42.8595,-82.1059 43.1082,-82.0928 43.127,-82.0998 43.1763,-82.0434 43.2167,-82.0332 43.23,-81.9703 43.276,-81.8563 43.333,-81.7783 43.3155,-81.7554 43.3101,-81.7431 43.3068,-81.7453 43.3073,-81.753 43.2931,-81.755 43.2901,-81.7322 43.2393,-81.7485 43.1995,-81.7869 43.1817,-81.7927 43.1806,-81.7931 43.173,-81.7956 43.1273,-81.7852 43.1004,-81.8008 43.0657,-81.7892 42.936,-81.7805</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041310</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538007</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538015</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538016</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538035</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538040</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538043</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538056</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Sarnia - Petrolia - Western Lambton County</areaDesc>
+            <polygon>42.462,-82.4848 42.5101,-82.6214 42.6639,-82.5161 42.7604,-82.4775 42.8066,-82.4897 42.9605,-82.4596 43.0278,-82.4053 43.0452,-82.2407 43.066,-82.1749 43.1061,-82.1612 43.127,-82.0998 43.1082,-82.0928 42.8629,-82.086 42.627,-82.1003 42.6226,-82.2613 42.6307,-82.4593 42.6054,-82.4588 42.5874,-82.3991 42.5328,-82.3814 42.4901,-82.436 42.4783,-82.4404 42.462,-82.4848</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041320</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538003</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538004</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538007</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538016</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538018</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538019</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538025</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538030</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538031</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538035</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>London - Parkhill - Eastern Middlesex County</areaDesc>
+            <polygon>43.2367,-81.29 43.2034,-81.224 43.2276,-81.1502 43.235,-81.1208 43.1447,-81.0577 43.0498,-81.0347 43.0547,-81.019 43.0022,-80.9926 43.0239,-80.9269 42.9647,-80.9014 42.9125,-80.8992 42.8415,-81.2313 42.8368,-81.2492 42.8331,-81.2656 42.8593,-81.2827 42.8886,-81.2979 42.8849,-81.3243 42.8854,-81.3488 42.9281,-81.3769 42.9724,-81.3998 43.0738,-81.6028 43.1806,-81.7931 43.1925,-81.8144 43.2041,-81.8392 43.2325,-81.8163 43.2428,-81.7968 43.2379,-81.7738 43.2368,-81.7716 43.2372,-81.7693 43.2393,-81.7485 43.2578,-81.6156 43.2706,-81.4655 43.2805,-81.4689 43.2889,-81.4689 43.293,-81.4306 43.2791,-81.3966 43.2638,-81.3636 43.2367,-81.29</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041510</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539027</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539033</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539036</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539060</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Strathroy - Komoka - Western Middlesex County</areaDesc>
+            <polygon>42.9291,-81.37 42.8854,-81.3488 42.8895,-81.3234 42.8886,-81.2979 42.8593,-81.2767 42.8331,-81.2656 42.8119,-81.3416 42.7935,-81.4239 42.7634,-81.3988 42.7091,-81.5502 42.6649,-81.5918 42.6594,-81.6483 42.6168,-81.6678 42.6137,-81.7243 42.5782,-81.7925 42.5782,-81.7926 42.591,-81.8179 42.5912,-81.8182 42.6081,-81.835 42.6307,-81.8408 42.651,-81.8354 42.7516,-81.8381 42.8429,-81.8353 42.8275,-81.814 42.8121,-81.7958 42.8161,-81.79 42.9345,-81.7981 43.0657,-81.7892 43.069,-81.8084 43.0817,-81.828 43.1064,-81.8341 43.1309,-81.8211 43.1739,-81.8272 43.2041,-81.8392 43.1925,-81.8144 43.1817,-81.7927 43.0857,-81.6012 42.9724,-81.3998 42.9291,-81.37</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041520</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539002</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539005</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539015</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539017</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539018</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539021</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539033</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539047</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Goderich - Bluewater - Southern Huron County</areaDesc>
+            <polygon>43.3073,-81.753 43.3068,-81.7453 43.3101,-81.7431 43.3155,-81.7554 43.333,-81.7783 43.8383,-81.8031 43.8105,-81.721 43.7269,-81.5005 43.6013,-81.2052 43.5994,-81.2023 43.5027,-81.2872 43.5317,-81.3488 43.4205,-81.4401 43.3818,-81.3424 43.3915,-81.3085 43.3592,-81.2894 43.3129,-81.3165 43.2638,-81.3636 43.2764,-81.4 43.293,-81.4306 43.2889,-81.4689 43.2787,-81.4627 43.2706,-81.4655 43.2506,-81.6138 43.2393,-81.7485 43.2368,-81.7716 43.2379,-81.7738 43.2428,-81.7968 43.2957,-81.78 43.2931,-81.755 43.3073,-81.753</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>046330</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540005</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540010</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540025</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540028</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540040</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540063</value>
+            </geocode>
+        </area>
+    </info>
+    <info>
+        <language>fr-CA</language>
+        <category>Met</category>
+        <event>météo</event>
+        <responseType>Monitor</responseType>
+        <urgency>Future</urgency>
+        <severity>Moderate</severity>
+        <certainty>Possible</certainty>
+        <audience>grand public</audience>
+        <eventCode>
+            <valueName>profile:CAP-CP:Event:0.4</valueName>
+            <value>weather</value>
+        </eventCode>
+        <effective>2023-11-01T00:41:52-00:00</effective>
+        <expires>2023-11-01T16:31:31-00:00</expires>
+        <senderName>Environnement Canada</senderName>
+        <headline>avis météorologique en vigueur</headline>
+        <description>
+Avis de conditions routières hivernales en vigueur pour ce soir, cette nuit et mercredi matin.
+
+Dangers :
+Neige due à l'effet de lac, parfois forte. De 5 à 15 cm de neige possibles par endroits.
+Visibilité réduite sous la forte neige.
+
+Période :
+Ce soir, cette nuit et mercredi matin.
+
+Description :
+Pour la plupart des secteurs, il s'agit du premier épisode de neige due à l'effet de lac de la saison à laisser une accumulation au sol. La neige pourrait être mêlée de pluie par moments ce soir avant de rapidement se changer exclusivement en neige.   L'accumulation de neige pourrait s'élever à près de 15 cm d'ici tard mercredi matin dans les bandes de neige persistant le plus longtemps.   L'heure de pointe matinale de mercredi sera probablement affectée par ces conditions, notamment sur les tronçons de la route 402 entre Sarnia et un point au nord de Strathroy. La neige due à l'effet de lac devrait surtout demeurer à l'ouest de la ville de London.
+
+###
+
+Les automobilistes doivent s'attendre à des conditions routières hivernales dangereuses et modifier leurs plans en conséquence. La visibilité peut être soudainement réduite par moments dans la neige forte. Les bourrasques de neige occasionnent des conditions météorologiques très changeantes; il n’est pas rare de passer d’un ciel dégagé à une zone de forte neige en quelques kilomètres à peine.
+
+Pour les conditions routières et d'autres renseignements à l'intention des voyageurs du ministère des Transports, visitez https://www.ontario.ca/511, https://www.twitter.com/511Ontario, ou composez le 5-1-1.
+
+Veuillez continuer à surveiller les alertes et les prévisions émises par Environnement Canada. Pour signaler du temps violent, envoyez un courriel à meteoON@ec.gc.ca ou publiez un gazouillis en utilisant le mot-clic #ONMeteo.
+</description>
+        <instruction>
+Si la visibilité est réduite alors que vous conduisez, ralentissez, surveillez les feux arrière des véhicules devant vous et soyez prêt à arrêter.
+</instruction>
+        <web>https://meteo.gc.ca/</web>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+            <value>advisory</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+            <value>no</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Parent_URI</valueName>
+            <value>msc/alert/environment/hazard/alert-3.0-ascii/consolidated-xml-2.0/20231101003131227/WZ_86_87_CWTO/WHA/2621337640592192202311010503_WZ_86_87_CWTO/actual/en_proper_complete_c-fr_proper_complete_c/NinJo</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:CAP_count</valueName>
+            <value>A:9966 M:55543 C:66838</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Name</valueName>
+            <value>avis météorologique</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.0:Alert_Coverage</valueName>
+            <value>sud de l'Ontario</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Designation_Code</valueName>
+            <value>WZ_86_87_CWTO</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:SOREM:2.0:WirelessImmediate</valueName>
+            <value>No</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Alert_Location_Status</valueName>
+            <value>active</value>
+        </parameter>
+        <parameter>
+            <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+            <value>041310,041320,041510,041520,046330</value>
+        </parameter>
+        <area>
+            <areaDesc>Watford - parc Pinery - comté de Lambton Est</areaDesc>
+            <polygon>42.936,-81.7805 42.8161,-81.79 42.8121,-81.7958 42.8258,-81.8144 42.8429,-81.8353 42.7535,-81.8316 42.651,-81.8354 42.6495,-81.9263 42.6506,-82.008 42.6419,-82.0061 42.6279,-82.0112 42.6246,-82.0234 42.6237,-82.0638 42.627,-82.1003 42.8595,-82.1059 43.1082,-82.0928 43.127,-82.0998 43.1763,-82.0434 43.2167,-82.0332 43.23,-81.9703 43.276,-81.8563 43.333,-81.7783 43.3155,-81.7554 43.3101,-81.7431 43.3068,-81.7453 43.3073,-81.753 43.2931,-81.755 43.2901,-81.7322 43.2393,-81.7485 43.1995,-81.7869 43.1817,-81.7927 43.1806,-81.7931 43.173,-81.7956 43.1273,-81.7852 43.1004,-81.8008 43.0657,-81.7892 42.936,-81.7805</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041310</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538007</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538015</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538016</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538035</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538040</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538043</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538056</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Sarnia - Petrolia - comté de Lambton Ouest</areaDesc>
+            <polygon>42.462,-82.4848 42.5101,-82.6214 42.6639,-82.5161 42.7604,-82.4775 42.8066,-82.4897 42.9605,-82.4596 43.0278,-82.4053 43.0452,-82.2407 43.066,-82.1749 43.1061,-82.1612 43.127,-82.0998 43.1082,-82.0928 42.8629,-82.086 42.627,-82.1003 42.6226,-82.2613 42.6307,-82.4593 42.6054,-82.4588 42.5874,-82.3991 42.5328,-82.3814 42.4901,-82.436 42.4783,-82.4404 42.462,-82.4848</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041320</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538003</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538004</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538007</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538016</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538018</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538019</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538025</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538030</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538031</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3538035</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>London - Parkhill - comté de Middlesex Est</areaDesc>
+            <polygon>43.2367,-81.29 43.2034,-81.224 43.2276,-81.1502 43.235,-81.1208 43.1447,-81.0577 43.0498,-81.0347 43.0547,-81.019 43.0022,-80.9926 43.0239,-80.9269 42.9647,-80.9014 42.9125,-80.8992 42.8415,-81.2313 42.8368,-81.2492 42.8331,-81.2656 42.8593,-81.2827 42.8886,-81.2979 42.8849,-81.3243 42.8854,-81.3488 42.9281,-81.3769 42.9724,-81.3998 43.0738,-81.6028 43.1806,-81.7931 43.1925,-81.8144 43.2041,-81.8392 43.2325,-81.8163 43.2428,-81.7968 43.2379,-81.7738 43.2368,-81.7716 43.2372,-81.7693 43.2393,-81.7485 43.2578,-81.6156 43.2706,-81.4655 43.2805,-81.4689 43.2889,-81.4689 43.293,-81.4306 43.2791,-81.3966 43.2638,-81.3636 43.2367,-81.29</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041510</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539027</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539033</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539036</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539060</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Strathroy - Komoka - comté de Middlesex Ouest</areaDesc>
+            <polygon>42.9291,-81.37 42.8854,-81.3488 42.8895,-81.3234 42.8886,-81.2979 42.8593,-81.2767 42.8331,-81.2656 42.8119,-81.3416 42.7935,-81.4239 42.7634,-81.3988 42.7091,-81.5502 42.6649,-81.5918 42.6594,-81.6483 42.6168,-81.6678 42.6137,-81.7243 42.5782,-81.7925 42.5782,-81.7926 42.591,-81.8179 42.5912,-81.8182 42.6081,-81.835 42.6307,-81.8408 42.651,-81.8354 42.7516,-81.8381 42.8429,-81.8353 42.8275,-81.814 42.8121,-81.7958 42.8161,-81.79 42.9345,-81.7981 43.0657,-81.7892 43.069,-81.8084 43.0817,-81.828 43.1064,-81.8341 43.1309,-81.8211 43.1739,-81.8272 43.2041,-81.8392 43.1925,-81.8144 43.1817,-81.7927 43.0857,-81.6012 42.9724,-81.3998 42.9291,-81.37</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>041520</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539002</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539005</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539015</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539017</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539018</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539021</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539033</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539041</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3539047</value>
+            </geocode>
+        </area>
+        <area>
+            <areaDesc>Goderich - Bluewater - comté de Huron Sud</areaDesc>
+            <polygon>43.3073,-81.753 43.3068,-81.7453 43.3101,-81.7431 43.3155,-81.7554 43.333,-81.7783 43.8383,-81.8031 43.8105,-81.721 43.7269,-81.5005 43.6013,-81.2052 43.5994,-81.2023 43.5027,-81.2872 43.5317,-81.3488 43.4205,-81.4401 43.3818,-81.3424 43.3915,-81.3085 43.3592,-81.2894 43.3129,-81.3165 43.2638,-81.3636 43.2764,-81.4 43.293,-81.4306 43.2889,-81.4689 43.2787,-81.4627 43.2706,-81.4655 43.2506,-81.6138 43.2393,-81.7485 43.2368,-81.7716 43.2379,-81.7738 43.2428,-81.7968 43.2957,-81.78 43.2931,-81.755 43.3073,-81.753</polygon>
+            <geocode>
+                <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+                <value>046330</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540005</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540010</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540025</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540028</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540040</value>
+            </geocode>
+            <geocode>
+                <valueName>profile:CAP-CP:Location:0.3</valueName>
+                <value>3540063</value>
+            </geocode>
+        </area>
+    </info>
+<Signature Id="NAADS Signature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>O71LL21U91U/aQ+97ZidbFmhDSQv/alqINAy64diHp4=</DigestValue></Reference></SignedInfo><SignatureValue>JlXQ8NMaZ7rdmAEdqX4sie4O6KXS5ra1yf7xAYFGfbEVjgHKkLLZkJK7LDLTJIg0I1qlke1jlq+SVXgWpofriX4PZ5P3u+Ir6XUAuE6tbpUA0QxQXngSQf5UeDMtfDJrN7qhSuEWGIUuD7x2OI934FVc1JD6tFVALAH/+9wWHKqOAz6dICkbMZquPgAvuoDyhCRpqR58/vtlWSm98T4K8SSfprqZCII01QqLukdPX1+24lrb5kwdgOiSpj3U5xJwrQZOqJv341GYCwR9KJBjdnOdGu5MrstrIniutWDdMy9ZFlv4tw6CGp7r+oCgXO6uCTRaAV2gjF6PHBq74+GIWg==</SignatureValue><KeyInfo><X509Data><X509Certificate>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</X509Certificate></X509Data></KeyInfo><Object xmlns=""><SignatureProperties><SignatureProperty Id="NAADS-DSS1" Target="https://dss1.naad-adna.pelmorex.com"><xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" /></SignatureProperty><SignatureProperty Id="NAADS-DSS2" Target="https://dss2.naad-adna.pelmorex.com"><xc:value xmlns:xc="http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2.xsd" /></SignatureProperty></SignatureProperties></Object></Signature><Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="Environment Canada">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+<SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+<Reference URI="">
+<Transforms>
+<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+</Transforms>
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<DigestValue>O71LL21U91U/aQ+97ZidbFmhDSQv/alqINAy64diHp4=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>u4gbHRhIZNUHWiZx14G6zuMBQH/slcord4yyYcYPKA+AiXSziD0Swb9yQrhhwMV3
+ysFJap7oObPdtmip3bMDgYGZZ/ikZNRBKWb/TYoGshEQt1WMAwaBR1A7vSaGoebh
+gl5pCuFnA9rJlsNDR2FuMFjevP2rWUS1fUudjTBPGP3kjYpkekAJXTksao20Paez
+lF0qV3t2uHiW3E4wpaXh2ApBRIVRbDQEKsOwEB+TUeMl8y0t8ihCMLpC4M++UhWH
+IHACXqFS9KzauHdJ5d73zmFV98jp769NV2Mja3Beap87OcnmpGRRfc5N8JQiOQ3H
+SEelxoTOfAFUH6elvCU0ow==</SignatureValue>
+<KeyInfo>
+<X509Data>
+<X509Certificate>MIIHQDCCBiigAwIBAgIQauIRkpOPcGViI+LoZHWDFzANBgkqhkiG9w0BAQsFADCB
+ujELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsT
+H1NlZSB3d3cuZW50cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAy
+MDEyIEVudHJ1c3QsIEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEuMCwG
+A1UEAxMlRW50cnVzdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEwxSzAeFw0y
+MzA0MjcxNDEyNDVaFw0yNDA1MDcxNDEyNDVaMGwxCzAJBgNVBAYTAkNBMQ8wDQYD
+VQQIEwZRdWViZWMxETAPBgNVBAcTCEdhdGluZWF1MR8wHQYDVQQKExZTaGFyZWQg
+U2VydmljZXMgQ2FuYWRhMRgwFgYDVQQDDA8qLndlYXRoZXIuZ2MuY2EwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOSYFvWlJgQgD5twPwuMqUXQB8Raj6
+enUh60KlOqYi2Moja8qBMhANS848XjHd+OlTNKv5J9YT6OoxTqcRe60e3nWYF6/u
+Plu+O4KWOO8x6jWbttEn5G7j7V35yaWXqP0LObVrQLDMYX3D4xsm+MJK7eyGJz8k
+AJAJYONS/+dp7/0jlrzlTjyuT4Uk50zVDvTGxiYpgjPfuXG9Bke5q8Cju4EEgAfW
+1I2+67Is7ae2fTjhvPH+w+L4iujk1ucmkrZqd2Norr8eeLebvDiSNxV4FkdzUZKQ
+TTycHQb1u/79WGgRKCH+nPYTzW/l/muRz59V0LKTQOlFmq8H45fmSYWZAgMBAAGj
+ggONMIIDiTAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRlq9u/A7i58xA3Eb4DmYis
+FzYwKTAfBgNVHSMEGDAWgBSConB03bxTP8971PfNf6dgxgpMvzBoBggrBgEFBQcB
+AQRcMFowIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLmVudHJ1c3QubmV0MDMGCCsG
+AQUFBzAChidodHRwOi8vYWlhLmVudHJ1c3QubmV0L2wxay1jaGFpbjI1Ni5jZXIw
+MwYDVR0fBCwwKjAooCagJIYiaHR0cDovL2NybC5lbnRydXN0Lm5ldC9sZXZlbDFr
+LmNybDCBnQYDVR0RBIGVMIGSgg8qLndlYXRoZXIuZ2MuY2GCDXdlYXRoZXIuZ2Mu
+Y2GCC21ldGVvLmdjLmNhgg0qLm1ldGVvLmdjLmNhghUqLmFscGhhLndlYXRoZXIu
+Z2MuY2GCEyouYWxwaGEubWV0ZW8uZ2MuY2GCFCouYmV0YS53ZWF0aGVyLmdjLmNh
+ghIqLmJldGEubWV0ZW8uZ2MuY2EwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQG
+CCsGAQUFBwMBBggrBgEFBQcDAjBMBgNVHSAERTBDMDcGCmCGSAGG+mwKAQUwKTAn
+BggrBgEFBQcCARYbaHR0cHM6Ly93d3cuZW50cnVzdC5uZXQvcnBhMAgGBmeBDAEC
+AjCCAXsGCisGAQQB1nkCBAIEggFrBIIBZwFlAHUAc9meiRtMlnigIH1HneayxhzQ
+UV5xGSqMa4AQesF3crUAAAGHww80IQAABAMARjBEAiAkpowR7bbTYLp4v/tw0Fav
+HHP8mm2i6/ecg03yasJkkgIga1hmg5g/Gq97+HOCDwjsy77aS8+PirSarIO6/X1H
+EfkAdQA7U3d1Pi25gE6LMFsG/kA7Z9hPw/THvQANLXJv4frUFwAAAYfDDzQcAAAE
+AwBGMEQCIBKVCiUTam6W9Y+5TiuhpsxVVx2TYVz9SebYPuB4XyHUAiB4Y9ZXnkOt
+rJJAaw4im3kY7OWZG40xPUL1ygK8trUsIAB1AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8
+vOzew1FIWUZxH7WbAAABh8MPNF0AAAQDAEYwRAIgYbZkNJlz8a4d35p4+wLg0h5P
+WtFyyBEqy06IoSV7UWICIH65mirJoLVsZFK7kXW3IJF4+xlgATBcr/n2ImBLSWug
+MA0GCSqGSIb3DQEBCwUAA4IBAQCcp2dfEDsCzJHpMsTF1hlEyYPTgmfrSbgegWT3
+76r0r7XGY7qIym53HE6Pk3Q7BgsegpV+pS8UMWx1m9x0ZcUQX11gMBlNLv0WCSBe
+4/9BOaGc2deYrXsRAmmFJwqvgegcBSQhg4zZSoSSVqJPhaJ1WYWqDbJW+doY15xy
+JPm7UbZqCAbzm3/c36N9j/Zu6h+LA9rhltfwYoWCyqlBtJCRrs7K7KEP+dLtsoby
++AhyY+3dK2IB4G7v5Qbxa88WKV9EsXXMpvl0v/kXSDjIHJwRPyOf1OKU9x2Mc3Mx
+KEgzSJ0GUUW0RqqCVWZ14TBoxUq1jJw4m12zSF+PYFpSH6g5</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature></alert>
