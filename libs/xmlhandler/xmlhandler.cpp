@@ -66,9 +66,6 @@ void XmlHandler::process_matches(std::string &host)
         return;
     }
 
-    // check history
-    if (XmlHandler::check_update_history(identifier.data())) return;
-
     std::vector<boost::property_tree::ptree::iterator> infoNodes;
     for (auto it = alert.begin(); it != alert.end(); ++it)
     {
@@ -89,6 +86,7 @@ void XmlHandler::process_matches(std::string &host)
         std::string size;
         std::string encodedData;
         std::string language;
+        std::string eventType;
         std::string urgency;
         std::string severity;
         bool areaCovered = 0;
@@ -102,6 +100,8 @@ void XmlHandler::process_matches(std::string &host)
             language = info->second.get_child("language").data();
             if(language == "en-CA") language = "en-US"; // cause Apple does not respect Canada
         }
+        if (info->second.find("event") != info->second.not_found())
+            eventType = info->second.get_child("event").data();
         if (info->second.find("urgency") != info->second.not_found())
             urgency = info->second.get_child("urgency").data();
         if (info->second.find("severity") != info->second.not_found())
@@ -145,6 +145,11 @@ void XmlHandler::process_matches(std::string &host)
             // areawarning = "AREA NOT RELEVANT.";
             return;
         }
+        
+        // the alert is relevant to our geographic area. 
+        // finally, check history to see if we've already handled this 
+        const HistoryItem currentItem(identifier.data(),eventType.data(),sent.data());
+        if (XmlHandler::check_update_history(currentItem)) return;
 
         // std::string audioFileName = sent.data() + "-" + identifier.data() + "-" + language;
         std::string audioFileName = sent.data() + "-" + language;

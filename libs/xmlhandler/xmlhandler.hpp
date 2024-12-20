@@ -8,6 +8,9 @@
 #include <queue>
 #include <string>
 #include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 #include <boost/regex.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -18,6 +21,37 @@
 // this REGEX_PATTERN cannot handle array of matches "<xml><alert></alert><xml><alert></alert>"
 // for the timebeing a workaround is to keep Client::BUFFER_SIZE < 1500 (size of Heartbeat)
 #define REGEX_PATTERN "<\\?xml\\s.*?<\\/alert>"
+
+struct HistoryItem
+{
+    std::string identifier_;
+    std::string eventType_;
+    std::time_t timestamp_;
+    
+    HistoryItem(std::string identifier, std::string eventType, std::string timestamp)
+    : identifier_(identifier), eventType_(eventType) {
+        auto tm = parseTimestamp(timestamp);
+        std::time_t t1 = std::mktime(&tm);
+        timestamp_ = t1;
+    }
+
+    // checks if two alerts are identical, or the same event that happened within 15 minutes of each other
+    const bool is_basically_same(const HistoryItem& other) const {
+        if (identifier_ == other.identifier_) return true;
+        if(eventType_ != other.eventType_) return false;
+        const double difference = std::difftime(timestamp_, other.timestamp_);
+        if (std::abs<double>(difference) > 900) return false;
+        return true;
+    }
+    
+    // convert string timestamp to std::tm object
+    std::tm parseTimestamp(const std::string& timestamp) {
+        std::tm tm = {};
+        std::istringstream ss(timestamp);
+        ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
+        return tm;
+    }
+};
 
 class XmlHandler
 {
@@ -38,17 +72,16 @@ private:
     std::unordered_map<std::string,std::string> fullBuffer_;
     std::queue<std::string> matches_;
     void process_matches(std::string& host);
-    inline static std::vector<std::string> history_ = {};
+    inline static std::vector<const HistoryItem> history_ = {};
     inline static std::mutex mut_;
-    inline static bool check_update_history(std::string h)
+    inline static bool check_update_history(const HistoryItem historyItem)
     {
-        
-        basic_log("CHECKING HISTORY " + h,INFO);
+        basic_log("CHECKING HISTORY " + historyItem.identifier_, INFO);
         std::lock_guard<std::mutex> lk(XmlHandler::mut_);
         for(auto it = history_.rbegin(); it != history_.rend(); it++)
-            if(h == *it)
+            if(historyItem.is_basically_same(*it))
                 return true;
-        XmlHandler::history_.push_back(h);
+        XmlHandler::history_.push_back(historyItem);
         return false;
     }
 };
