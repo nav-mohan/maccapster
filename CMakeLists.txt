@@ -19,6 +19,7 @@ add_subdirectory(libs/rs232util)
 add_subdirectory(libs/geoutil)
 add_subdirectory(libs/macttsqueue)
 add_subdirectory(libs/playbackqueue)
+add_subdirectory(libs/encoderQueue)
 
 target_include_directories( ${TARGET_NAME} PUBLIC 
     libs/mslogger     
@@ -30,6 +31,7 @@ target_include_directories( ${TARGET_NAME} PUBLIC
     libs/geoutil
     libs/macttsqueue
     libs/playbackqueue
+    libs/encoderQueue
     )
 
 target_link_libraries(${TARGET_NAME} PUBLIC 
@@ -41,6 +43,7 @@ target_link_libraries(${TARGET_NAME} PUBLIC
     geoutil 
     macttsqueue 
     playbackqueue
+    encoderQueue
     mslogger
     "-framework Cocoa"
 )

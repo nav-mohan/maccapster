@@ -7,6 +7,8 @@
 #include "playbackqueue.hpp"
 #include "decodeutil.hpp"
 #include "downloadqueue.hpp"
+#include "encoder.hpp"
+#include "encoderQueue.hpp"
 
 #include "helpers.mm"
 #include "state.h"
@@ -22,10 +24,33 @@ XmlHandler xmlHandler;
 RS232Util relayControl;
 GeoUtil geoUtil;
 UserSettings settings;
+MPEGEncoder<ENCODERBITRATE::MEDIUM, ENCODERSAMPLERATE::MEDIUM, ENCODERCHANNEL::MONO> mpegEnc;
+
 
 // std::ofstream capturedOutput("output.txt");
 int main(int argc, char *argv[])
 {
+    EncQueue encoderQueue;
+    encoderQueue.Encode = [&](const std::string filename){
+        FILE *fp = fopen("sample.wav","rb");
+        FILE *fpout = fopen("sample.mp3","wb");
+        int bytesRead = fread(mpegEnc.m_pcmBuffer,1,4098,fp);
+        while(bytesRead > 0)
+        {
+            printf("READ %d BTES\n",bytesRead);
+            mpegEnc.DoEncodeInterleaved(mpegEnc.m_pcmBuffer,bytesRead);
+            int bytesWritten = fwrite(mpegEnc.m_encBuffer,1,mpegEnc.m_bytesEncoded,fpout);
+            printf("WROTE %d BTES %s\n",bytesWritten,mpegEnc.m_encBuffer);
+
+            bytesRead = fread(mpegEnc.m_pcmBuffer,1,4098,fp);
+        }
+        fclose(fp);
+        fclose(fpout);
+    };  
+    encoderQueue.Encode("sample.wav");
+
+    printf("DONE ENCODING\n");
+
     basic_log("CONFIGURATION",DEBUG);
     basic_log("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
     basic_log("SERVER2 " + settings.server2_ + ":" + settings.port2_,DEBUG);
