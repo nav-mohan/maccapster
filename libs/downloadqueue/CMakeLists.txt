@@ -3,6 +3,9 @@ message("BUILDING DOWNLOADQUEUE")
 add_library(downloadqueue downloadqueue.cpp)
 target_include_directories(downloadqueue PUBLIC ${CMAKE_SOURCE_DIR}/libs/mslogger)
 
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
 find_package(Boost REQUIRED COMPONENTS headers)
 
 # set(INTEL_OPENSSL_PATH "/usr/local/Cellar/openssl@1.1/1.1.1t")
