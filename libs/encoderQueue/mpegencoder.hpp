@@ -22,11 +22,32 @@ struct MPEGEncoder
     const uint32_t      m_samplerate        = static_cast<uint32_t>(es);
     const uint32_t      m_channels          = static_cast<uint32_t>(ec);
     int                 m_bytesEncoded      = 0;
+
+// ----------------------------------------------------------------------
+
+    constexpr int       DoEncodeMono(const void *pcmBuffer, const uint32_t pcmBufferSize)
+    {
+        // printf("RECEIVED %d BYTES %s\n", pcmBufferSize,(char*)pcmBuffer);
+        memset(m_pcmBuffer, 0, 2 * CALCULATE_CHANNEL_BUFFER_SIZE);
+        memcpy(m_pcmBuffer, pcmBuffer, pcmBufferSize);
+        m_bytesEncoded = lame_encode_buffer(
+            m_lgf,
+            m_pcmBuffer, NULL,
+            pcmBufferSize/2,
+            m_encBuffer,
+            2 * CALCULATE_CHANNEL_BUFFER_SIZE
+        );
+        // printf("MPEG ENCODED %d BYTES %s\n",m_bytesEncoded,m_encBuffer);
+        // if(m_bytesEncoded > 0)
+            // fwrite(m_encBuffer,1,m_bytesEncoded,outfile);
+        return m_bytesEncoded;
+    }
+
 // ----------------------------------------------------------------------
 
     constexpr int       DoEncodeInterleaved(const void *pcmBuffer, const uint32_t pcmBufferSize)
     {
-        // printf("RECEIVED %d BYTES\n", pcmBufferSize);
+        // printf("RECEIVED %d BYTES %s\n", pcmBufferSize,(char*)pcmBuffer);
         memset(m_pcmBuffer, 0, 2 * CALCULATE_CHANNEL_BUFFER_SIZE);
         memcpy(m_pcmBuffer, pcmBuffer, pcmBufferSize);
 
@@ -37,11 +58,12 @@ struct MPEGEncoder
             m_encBuffer,
             2 * CALCULATE_CHANNEL_BUFFER_SIZE
         );
-        // printf("MPEG ENCODED %d BYTES\n",m_bytesEncoded);
+        // printf("MPEG ENCODED %d BYTES %s\n",m_bytesEncoded,m_encBuffer);
         // if(m_bytesEncoded > 0)
             // fwrite(m_encBuffer,1,m_bytesEncoded,outfile);
         return m_bytesEncoded;
     }
+
 // ----------------------------------------------------------------------
 
     // FILE *outfile = nullptr;
