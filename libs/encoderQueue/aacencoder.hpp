@@ -101,7 +101,7 @@ struct AACEncoder
         // printf("MEMCOPYING AAC %d\n",bytes_to_be_processed);
         memcpy(m_pcmBuffer,m_pcmBufferInternal,bytes_to_be_processed);
         err = aacEncEncode(handle, &m_pcmBuffDesc, &m_aacBuffDesc, &m_pcmArgs, &m_aacArgs);
-        fwrite(m_encBuffer, 1, m_aacArgs.numOutBytes, outfile);
+        // fwrite(m_encBuffer, 1, m_aacArgs.numOutBytes, outfile);
         // printf("WROTE %d BYTES\n",m_aacArgs.numOutBytes);
         m_bytesEncoded = m_aacArgs.numOutBytes;
         return m_bytesEncoded;
