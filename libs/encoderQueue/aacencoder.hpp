@@ -117,6 +117,22 @@ struct AACEncoder
     }
 
 // ----------------------------------------------------------------------
+// The flush process for FDK-AAC seems to be more involved than this. 
+// According to the documentation, setting the numInSamples = -1 should do the trick 
+// but we get an audio blip at the beginning (doesn't happen for the first file in the queue)
+    constexpr int       DoFlush()
+    {
+        int err = 0;
+        int bytes_to_be_processed = -1; 
+        m_pcmArgs.numInSamples = -1;
+        m_pcmBuffDesc.bufSizes = &bytes_to_be_processed;
+        err = aacEncEncode(handle, &m_pcmBuffDesc, &m_aacBuffDesc, &m_pcmArgs, &m_aacArgs);
+        m_bytesEncoded = m_aacArgs.numOutBytes;
+        printf("FLUSH ERROR %d | %d\n",err,m_bytesEncoded);
+        return m_bytesEncoded;
+    }
+
+// ----------------------------------------------------------------------
 
 }; // struct AACEncoder
 
