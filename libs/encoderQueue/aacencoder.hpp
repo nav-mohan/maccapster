@@ -110,26 +110,12 @@ struct AACEncoder
 // ----------------------------------------------------------------------
 
     // FDK-AAC is finicky about pcmBufferSize. It maxes out at 2048 for MONO and 4096 for Stereo
+    // So for simplicity, I'm making these two functions identical.
     constexpr int       DoEncodeInterleaved(const void *pcmBuffer, const uint32_t pcmBufferSize)
     {
-        memset(m_pcmBufferInternal, 0, 2 * CALCULATE_CHANNEL_BUFFER_SIZE);
-        memcpy(m_pcmBufferInternal, pcmBuffer, pcmBufferSize);
-        int err = 0;
-
-        int bytes_to_be_processed = 4096; 
-
-        m_pcmArgs.numInSamples = bytes_to_be_processed <= 0 ? -1 : bytes_to_be_processed/2;
-        m_pcmBuffDesc.bufSizes = &bytes_to_be_processed;
-        // printf("MEMSETTING AAC %d\n",bytes_to_be_processed);
-        memset(m_pcmBuffer, 0, bytes_to_be_processed);
-        // printf("MEMCOPYING AAC %d\n",bytes_to_be_processed);
-        memcpy(m_pcmBuffer,m_pcmBufferInternal,bytes_to_be_processed);
-        err = aacEncEncode(handle, &m_pcmBuffDesc, &m_aacBuffDesc, &m_pcmArgs, &m_aacArgs);
-        // fwrite(m_encBuffer, 1, m_aacArgs.numOutBytes, outfile);
-        m_bytesEncoded = m_aacArgs.numOutBytes;
-        return m_bytesEncoded;
-
+        return DoEncodeMono(pcmBuffer,pcmBufferSize);
     }
+
 // ----------------------------------------------------------------------
 
 }; // struct AACEncoder
