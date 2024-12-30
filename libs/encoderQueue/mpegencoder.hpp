@@ -66,6 +66,14 @@ struct MPEGEncoder
 
 // ----------------------------------------------------------------------
 
+    constexpr int       DoFlush()
+    {
+        int flushedBytes = lame_encode_flush(m_lgf, m_encBuffer, 2*CALCULATE_CHANNEL_BUFFER_SIZE);   
+        return flushedBytes;
+    }
+
+// ----------------------------------------------------------------------
+
     // FILE *outfile = nullptr;
     ~MPEGEncoder()
     {
