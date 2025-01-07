@@ -5,51 +5,24 @@ if(POLICY CMP0167)
   cmake_policy(SET CMP0167 NEW)
 endif()
 
-set(BUILD_SHARED_LIBS ON CACHE BOOL "Disable building shared-library")
-SET(ENABLE_MBEDTLS OFF CACHE BOOL "Enable use of mbed TLS" )
-SET(ENABLE_NETTLE OFF CACHE BOOL "Enable use of Nettle" )
-SET(ENABLE_OPENSSL OFF CACHE BOOL "Enable use of OpenSSL" )
-SET(ENABLE_LIBB2 OFF CACHE BOOL "Enable the use of the system LIBB2 library if found" )
-SET(ENABLE_LZ4 OFF CACHE BOOL "Enable the use of the system LZ4 library if found" )
-SET(ENABLE_LZO OFF CACHE BOOL "Enable the use of the system LZO library if found" )
-SET(ENABLE_LZMA OFF CACHE BOOL "Enable the use of the system LZMA library if found" )
-SET(ENABLE_ZSTD OFF CACHE BOOL "Enable the use of the system zstd library if found" )
+# enable/disable required FLAGS for libarchive
+include(${CMAKE_CURRENT_SOURCE_DIR}/libarchive_flags.cmake)
 
-set(ENABLE_ZLIB ON CACHE BOOL  "Enable the use of the system ZLIB library if found")
-set(ENABLE_BZip2 OFF CACHE BOOL  "Enable the use of the system BZip2 library if found")
-set(ENABLE_LIBXML2 ON CACHE BOOL  "Enable the use of the system libxml2 library if found")
-set(ENABLE_EXPAT OFF CACHE BOOL  "Enable the use of the system EXPAT library if found")
-set(ENABLE_PCREPOSIX OFF CACHE BOOL  "Enable the use of the system PCREPOSIX library if found")
-set(ENABLE_PCRE2POSIX OFF CACHE BOOL  "Enable the use of the system PCRE2POSIX library if found")
-set(ENABLE_LIBGCC OFF CACHE BOOL  "Enable the use of the system LibGCC library if found")
-
-set(ENABLE_CNG OFF CACHE BOOL "Enable the use of CNG(Crypto Next Generation)")
-
-set(ENABLE_TAR ON CACHE BOOL "Enable tar building")
-set(ENABLE_TAR_SHARED OFF CACHE BOOL "Enable dynamic build of tar")
-set(ENABLE_CPIO OFF CACHE BOOL "Enable cpio building")
-set(ENABLE_CPIO_SHARED OFF CACHE BOOL "Enable dynamic build of cpio")
-set(ENABLE_CAT OFF CACHE BOOL "Enable cat building")
-set(ENABLE_CAT_SHARED OFF CACHE BOOL "Enable dynamic build of cat")
-
-set(ENABLE_UNZIP OFF CACHE BOOL "Enable unzip building")
-set(ENABLE_UNZIP_SHARED OFF CACHE BOOL "Enable dynamic build of unzip")
-
-set(ENABLE_XATTR OFF CACHE BOOL "Enable extended attribute support")
-set(ENABLE_ACL OFF CACHE BOOL "Enable ACL support")
-set(ENABLE_ICONV OFF CACHE BOOL "Enable iconv support")
-set(ENABLE_TEST OFF CACHE BOOL "Enable unit and regression tests")
-set(ENABLE_COVERAGE OFF CACHE BOOL "Enable code coverage (GCC only, automatically sets ENABLE_TEST to ON)")
-set(ENABLE_INSTALL OFF CACHE BOOL "Enable installing of libraries")
 
 # Add libarchive as a subdirectory
 add_subdirectory(third_party/libarchive)
 
-# Include libarchive headers
-include_directories(third_party/libarchive/libarchive)
+# Define the archiveQueue library
+add_library(archiveQueue STATIC archiveQueue.cpp zipArchiver.cpp)
 
-add_library(archiveQueue archiveQueue.cpp)
-target_include_directories(archiveQueue PUBLIC ${CMAKE_SOURCE_DIR}/libs/mslogger)
-target_link_libraries(archiveQueue archive)
+# Include directories for archiveQueue and libarchive
+target_include_directories(archiveQueue PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/libarchive/libarchive
+        ${CMAKE_SOURCE_DIR}/libs/mslogger
+    )
 
-    
+# Link libarchive to the archiveQueue library
+target_link_libraries(archiveQueue PRIVATE archive_static)
+
+
