@@ -75,6 +75,9 @@ int main(int argc, char *argv[])
         const std::string archivePath = directoryPath + ".zip";
         zipArchiver.CompressDirectoryToZip(archivePath,directoryPath);
     };
+    archiveQueue.OnFinishArchiving = [&](){
+        printf("DONE ZIPPING ALL FOLDERS\n");
+    };
  
     basic_log("CONFIGURATION",DEBUG);
     basic_log("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
