@@ -7,7 +7,7 @@
 #include "playbackqueue.hpp"
 #include "decodeutil.hpp"
 #include "downloadqueue.hpp"
-#include "encoder.hpp"
+#include "encoderFactory.hpp"
 #include "encoderQueue.hpp"
 
 #include "helpers.mm"
@@ -24,28 +24,40 @@ XmlHandler xmlHandler;
 RS232Util relayControl;
 GeoUtil geoUtil;
 UserSettings settings;
-MPEGEncoder<ENCODERBITRATE::MEDIUM, ENCODERSAMPLERATE::MEDIUM, ENCODERCHANNEL::MONO> mpegEnc;
+EncQueue encoderQueue;
 
 
 // std::ofstream capturedOutput("output.txt");
 int main(int argc, char *argv[])
 {
-    EncQueue encoderQueue;
+    auto mpegEnc = std::move(EncoderFactory("MPEG MED"));
     encoderQueue.Encode = [&](const std::string filename){
-        FILE *fp = fopen("sample.wav","rb");
-        FILE *fpout = fopen("sample.mp3","wb");
-        int bytesRead = fread(mpegEnc.m_pcmBuffer,1,4098,fp);
-        while(bytesRead > 0)
+        std::visit([&filename](auto&& encoderVariant)
         {
-            printf("READ %d BTES\n",bytesRead);
-            mpegEnc.DoEncodeInterleaved(mpegEnc.m_pcmBuffer,bytesRead);
-            int bytesWritten = fwrite(mpegEnc.m_encBuffer,1,mpegEnc.m_bytesEncoded,fpout);
-            printf("WROTE %d BTES %s\n",bytesWritten,mpegEnc.m_encBuffer);
+            basic_log("START ENCODING " + filename,DEBUG);
+            std::string outfilename = filename.substr(0, filename.rfind('.')) + ".mp3";
+            FILE *fp = fopen(filename.c_str(),"rb");
+            FILE *fpout = fopen(outfilename.c_str(),"wb");
+            
+            const int bufferSize = 2048; // FDK-AAC is finicky about the buffer-size. it maxes out at 2048 for MONO and 4096 for STEREO sticking to 2048 bytes works for MONO and STEREO
+            void *pcmBufferQueue = malloc(bufferSize); 
+            int bytesRead = 0;
+            memset(pcmBufferQueue,0,bufferSize); 
+            
+            fseek(fp,44,SEEK_SET); // skip the WAV header for now but we should use the WAV-Header to switch between MONO and STEREO
+            
+            while((bytesRead = fread(pcmBufferQueue,1,bufferSize,fp)) > 0)
+            {
+                if(int bytesEncoded = encoderVariant->DoEncodeMono(pcmBufferQueue,bytesRead))
+                    int bytesWritten = fwrite(encoderVariant->m_encBuffer,1,bytesEncoded,fpout);
+            }
+            if ( int flushedBytes = encoderVariant->DoFlush() ) 
+                fwrite(encoderVariant->m_encBuffer, 1, flushedBytes, fpout);
 
-            bytesRead = fread(mpegEnc.m_pcmBuffer,1,4098,fp);
-        }
-        fclose(fp);
-        fclose(fpout);
+            fclose(fp);
+            fclose(fpout);
+            basic_log("FINISHED ENCODING " + filename,DEBUG);
+        },mpegEnc);
     };  
     encoderQueue.Encode("sample.wav");
 
