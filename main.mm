@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
         },mpegEnc);
     };  
     encoderQueue.OnFinish = [](){
-        printf("DONE ENCODING ALL FILES NOW MOVING MP3/AAC FILES INTO DAILY FOLDER\n");
+        basic_log("DONE ENCODING ALL FILES",INFO);
         // if a daily-folder does not exist, then create it
         // else move it into the already existing daily-folder
         // the same with XML files as well. They should all be moved into the same daily-folder
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         zipArchiver.CompressDirectoryToZip(archivePath,directoryPath);
     };
     archiveQueue.OnFinishArchiving = [&](){
-        printf("DONE ZIPPING ALL FOLDERS\n");
+        basic_log("DONE ZIPPING ALL FOLDERS",INFO);
     };
  
     basic_log("CONFIGURATION",DEBUG);
