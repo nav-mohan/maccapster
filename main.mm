@@ -59,10 +59,13 @@ int main(int argc, char *argv[])
             basic_log("FINISHED ENCODING " + filename,DEBUG);
         },mpegEnc);
     };  
-    encoderQueue.Encode("sample.wav");
-
-    printf("DONE ENCODING\n");
-
+    encoderQueue.OnFinish = [](){
+        printf("DONE ENCODING ALL FILES NOW MOVING MP3/AAC FILES INTO DAILY FOLDER\n");
+        // if a daily-folder does not exist, then create it
+        // else move it into the already existing daily-folder
+        // the same with XML files as well. They should all be moved into the same daily-folder
+        // at the end of the day, the daily-folder is zipped up
+    };
     basic_log("CONFIGURATION",DEBUG);
     basic_log("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
     basic_log("SERVER2 " + settings.server2_ + ":" + settings.port2_,DEBUG);
