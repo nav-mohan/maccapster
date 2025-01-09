@@ -9,6 +9,8 @@
 #include "downloadqueue.hpp"
 #include "encoderFactory.hpp"
 #include "encoderQueue.hpp"
+#include "archiveQueue.hpp"
+#include "zipArchiver.hpp"
 
 #include "helpers.mm"
 #include "state.h"
@@ -25,6 +27,8 @@ RS232Util relayControl;
 GeoUtil geoUtil;
 UserSettings settings;
 EncQueue encoderQueue;
+ArchiveQueue archiveQueue;
+ZipArchiver zipArchiver;
 
 
 // std::ofstream capturedOutput("output.txt");
@@ -66,6 +70,12 @@ int main(int argc, char *argv[])
         // the same with XML files as well. They should all be moved into the same daily-folder
         // at the end of the day, the daily-folder is zipped up
     };
+
+    archiveQueue.DoArchiving = [&](const std::string& directoryPath){
+        const std::string archivePath = directoryPath + ".zip";
+        zipArchiver.CompressDirectoryToZip(archivePath,directoryPath);
+    };
+ 
     basic_log("CONFIGURATION",DEBUG);
     basic_log("SERVER1 " + settings.server1_ + ":" + settings.port1_,DEBUG);
     basic_log("SERVER2 " + settings.server2_ + ":" + settings.port2_,DEBUG);
