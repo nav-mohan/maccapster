@@ -65,9 +65,10 @@ set(CONTENTS_DIR "${BUNDLE_DESTINATION}/Contents")
 set(MACOS_DIR "${CONTENTS_DIR}/MacOS")
 set(FRAMEWORKS_DIR "${CONTENTS_DIR}/Frameworks")
 set(RESOURCES_DIR "${CONTENTS_DIR}/Resources")
+set(STORAGE_DIR "${CONTENTS_DIR}/Storage")
 
 # Create the necessary directories within the bundle
-file(MAKE_DIRECTORY ${MACOS_DIR} ${FRAMEWORKS_DIR} ${RESOURCES_DIR})
+file(MAKE_DIRECTORY ${MACOS_DIR} ${FRAMEWORKS_DIR} ${RESOURCES_DIR} ${STORAGE_DIR})
 
 # Copy your executable to the bundle
 install(PROGRAMS "${EXECUTABLE_SOURCE}" DESTINATION ${MACOS_DIR})
