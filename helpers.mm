@@ -39,6 +39,10 @@ std::string getResourcePath(const std::string& fileName) {
     return getContentsDirPath() + "/Resources/" + fileName;
 }
 
+std::string getStorageDirPath()
+{
+    return getContentsDirPath() + "/Storage";
+}
 
 #define URL_REGEX_PATTERN   "^(https://|http://|://|//)?([\\w,.]*)(.*)"
 void ParseURL(const std::string& url, std::string& host, std::string& target, std::string& port) // convert url --> host/target:port
