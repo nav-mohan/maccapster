@@ -159,6 +159,7 @@ int main(int argc, char *argv[])
 
     xmlHandler.enqueueTTS = [&](std::string&& ttsText, std::string& filename, const std::string& language){
         std::string output = std::move(prepareTextForTTS(std::move(ttsText)));
+        filename = getStorageDirPath() + "/" + filename;
         const char *t = output.c_str();
         const char *f = filename.c_str();
         const char *l = language.c_str();
