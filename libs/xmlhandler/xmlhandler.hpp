@@ -65,6 +65,7 @@ public:
     std::function<void(std::string&& encodedData,const std::string& filename)> decodeToFile;
     std::function<void(const std::string& uri, const std::string& filename)> enqueueDwnld;
     std::function<void(std::string&& text, std::string& filename, const std::string& language)> enqueueTTS;
+    std::function<void(std::string content, std::string filename)> writeToFile;
 
 private:
     boost::regex regexPattern_;

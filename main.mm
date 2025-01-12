@@ -174,6 +174,13 @@ int main(int argc, char *argv[])
         [ttsq enqueueText : sp];
         [sp release];
     };
+
+    xmlHandler.writeToFile = [](std::string content, std::string filename){
+        FILE *xmllogfile = fopen((getStorageDirPath() + "/" + filename +".xml").c_str(),"w");
+        fwrite(content.c_str(), 1, content.size(), xmllogfile);
+        fclose(xmllogfile);
+    };
+
     basic_log("CONFIGURED XMLHANDLER ENQUEUETTS",DEBUG);
 
     clientConn1.appendXml = [&](std::string& host, const std::vector<char>&& tempBuffer, size_t size){

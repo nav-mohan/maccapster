@@ -55,9 +55,7 @@ void XmlHandler::process_matches(std::string &host)
     
     // Heartbeat
     if (status.data() == "System") return;
-    FILE *xmllogfile = fopen((identifier.data()+".xml").c_str(),"w");
-    fwrite(y.c_str(), 1, y.size(), xmllogfile);
-    fclose(xmllogfile);
+    writeToFile(y.c_str(),identifier.data());
 
     // Not Actual?
     if (status.data() != "Actual")
