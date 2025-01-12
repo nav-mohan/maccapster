@@ -24,6 +24,7 @@ private: // member variables
     static std::ofstream file_;
     static uint16_t fileindex_;
     static std::string fileDate_;
+    inline static std::string logDirectory_ = ".";
     static std::string filepath_;
     void write_to_file();
     static void generate_filename();
@@ -39,6 +40,7 @@ public:
     void set_bufferSize(std::size_t bs); // set bufferSize after instantiation of logger. can only increase buffersize
     void log_to_stdout(std::string msg, LEVELS l=LOGLEVEL);
     void log_to_file(std::string msg, LEVELS l=LOGLEVEL);
+    static inline void set_log_dir(std::string directoryPath){logDirectory_ = directoryPath;};
 
 private: // contructors
     MsLogger<LOGLEVEL>();
@@ -148,6 +150,8 @@ void MsLogger<LOGLEVEL>::generate_filename()
         filepath_ = std::move(generate_date()+(fileindex_>9?"_":"_0") + std::to_string(fileindex_) + ".log");
         break;
     }
+    filepath_ = logDirectory_ + "/" + filepath_;
+
     // std::cout << "GENERATED FILEPATH " << filepath_ << std::endl;
 }
 

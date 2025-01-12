@@ -34,6 +34,7 @@ ZipArchiver zipArchiver;
 // std::ofstream capturedOutput("output.txt");
 int main(int argc, char *argv[])
 {
+    MsLogger<INFO>::set_log_dir(getStorageDirPath()); // All specializations <INFO>,<DEBUG>,<TRACE> will write to the same file. 
     auto mpegEnc = std::move(EncoderFactory("MPEG MED"));
     encoderQueue.Encode = [&](const std::string filename){
         std::visit([&filename](auto&& encoderVariant)
