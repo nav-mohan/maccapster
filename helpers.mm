@@ -10,6 +10,20 @@ std::string getBundlePath()
     return [mainBundlePath UTF8String];
 }
 
+// returns ./build/../ in dev mode (unbundled executable) 
+// return /Applications/capster.app/Contents/ in prod mode (bundled app)
+std::string getContentsDirPath()
+{
+    const std::string bundlePath = getBundlePath();
+    const std::string suffix = ".app";
+    
+    // if the bundlePath has a suffix of .app (such as /Applications/capster.app) then we are executing the bundled application
+    if (bundlePath.compare(bundlePath.size() - suffix.size(), suffix.size(), suffix) == 0) 
+        return bundlePath + "/Contents";
+    
+    else // unbundled binary executable
+        return bundlePath.substr(0, bundlePath.find_last_of('/'));
+}
 
 std::string getResourcePath(const std::string& fileName) {
     NSBundle* mainBundle = [NSBundle mainBundle];
