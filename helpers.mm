@@ -1,6 +1,16 @@
 #include <regex>
 #include <Foundation/Foundation.h>
 
+// This will be used as a base for generating other directory-paths
+// This returns ./build in dev mode (unbundled executable). 
+// And returns /Applications/capster.app/ in prod mode (bundled app)
+std::string getBundlePath()
+{
+    NSString *mainBundlePath = [[NSBundle mainBundle] bundlePath];  
+    return [mainBundlePath UTF8String];
+}
+
+
 std::string getResourcePath(const std::string& fileName) {
     NSBundle* mainBundle = [NSBundle mainBundle];
     NSString* resourcePath = [mainBundle pathForResource:@(fileName.c_str()) ofType:nil];
