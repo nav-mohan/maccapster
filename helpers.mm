@@ -1,4 +1,6 @@
 #include <regex>
+#include <ctime>
+#include <chrono>
 #include <Foundation/Foundation.h>
 
 // This will be used as a base for generating other directory-paths
@@ -66,6 +68,16 @@ std::string getTodayDate() {
     dateStream << std::put_time(&localTime, "%Y-%m-%d");
     return dateStream.str();
 }
+
+// returns ./build/../Storage/2024-09-11 in dev-mode
+// and /Applications/capster.app/Contents/Storage/2024-09-11 in prod-mode
+std::string getDailyDirPath()
+{
+    std::string path = getStorageDirPath();
+    std::string date = getTodayDate();
+    return path + "/" + date;
+}
+
 
 
 #define URL_REGEX_PATTERN   "^(https://|http://|://|//)?([\\w,.]*)(.*)"
