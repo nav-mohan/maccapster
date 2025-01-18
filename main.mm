@@ -65,11 +65,19 @@ int main(int argc, char *argv[])
         },mpegEnc);
     };  
     encoderQueue.OnFinish = [](){
-        basic_log("DONE ENCODING ALL FILES",INFO);
-        // if a daily-folder does not exist, then create it
-        // else move it into the already existing daily-folder
-        // the same with XML files as well. They should all be moved into the same daily-folder
-        // at the end of the day, the daily-folder is zipped up
+        // check which all WAV files have been succesfully encoded and delete the WAV files
+        std::vector<std::string> history = encoderQueue.GetHistory();
+        basic_log("DONE ENCODING " + std::to_string(history.size()) + "WAV FILE(S)",INFO);
+        for(const auto& wavSrc : encoderQueue.GetHistory())
+        {
+            std::string mpegSrc = wavSrc.substr(0, wavSrc.rfind('.')) + ".mp3";
+            std::string aacSrc = wavSrc.substr(0, wavSrc.rfind('.')) + ".aac";
+            if(std::filesystem::exists(mpegSrc) || std::filesystem::exists(aacSrc)) 
+            {
+                basic_log("DELETING WAV FILE " + wavSrc , DEBUG);
+                deleteFile(wavSrc);
+            }
+        }
     };
 
     archiveQueue.DoArchiving = [&](const std::string& directoryPath){
