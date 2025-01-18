@@ -52,6 +52,22 @@ std::string getStorageDirPath()
     return getContentsDirPath() + "/Storage";
 }
 
+// returns today's date "2024-05-31"
+std::string getTodayDate() {
+    // Get the current time
+    auto now = std::chrono::system_clock::now();
+    // Convert to time_t
+    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+    // Convert to tm structure
+    std::tm localTime = *std::localtime(&currentTime);
+
+    // Format the date as YYYY-MM-DD
+    std::ostringstream dateStream;
+    dateStream << std::put_time(&localTime, "%Y-%m-%d");
+    return dateStream.str();
+}
+
+
 #define URL_REGEX_PATTERN   "^(https://|http://|://|//)?([\\w,.]*)(.*)"
 void ParseURL(const std::string& url, std::string& host, std::string& target, std::string& port) // convert url --> host/target:port
 {
