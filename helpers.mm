@@ -118,6 +118,20 @@ bool moveFile(const std::string& srcPath, const std::string& dstPath)
     return true;    
 }
 
+bool deleteFile(const std::string& srcPath)
+{
+    try 
+    {
+        std::filesystem::remove_all(srcPath);
+        std::cout << "Successfully deleted " << srcPath << ".\n";
+    }
+    catch (const std::filesystem::filesystem_error& e) 
+    {
+        std::cerr << "Filesystem error: " << e.what() << '\n';
+        return false;
+    }
+    return true;    
+}
 
 
 #define URL_REGEX_PATTERN   "^(https://|http://|://|//)?([\\w,.]*)(.*)"
