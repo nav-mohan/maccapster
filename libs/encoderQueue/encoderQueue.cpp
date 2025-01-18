@@ -15,8 +15,13 @@ void EncQueue::Handler()
             queue_.pop();
             busy_.store(1);
             lock.unlock();
+            history_.push_back(filename);
             Encode(filename); // this blocks the workerThread_
-            if(queue_.size()==0) OnFinish();
+            if(queue_.size()==0) 
+            {
+                OnFinish();
+                history_.clear();
+            }
             lock.lock();
             busy_.store(0);
         }
