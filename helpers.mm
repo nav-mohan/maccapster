@@ -25,20 +25,28 @@ std::string getContentsDirPath()
         return bundlePath.substr(0, bundlePath.find_last_of('/'));
 }
 
-std::string getResourcePath(const std::string& fileName) {
-    // There is a special method to specifically get files from the /Resources directory
-    // but it points to ./build in dev-mode. 
-    // and it points to /Applications/capster.app/Contents/Resources in prod-mode
-    // we want it to be more consistent by always pointing to getContentsDirPath()/Resources
-    // NSBundle* mainBundle = [NSBundle mainBundle];
-    // NSString* resourcePath = [mainBundle pathForResource:@(fileName.c_str()) ofType:nil];
-    // if (resourcePath == nil || resourcePath.length == 0) return "";
-    // std::string path = [resourcePath UTF8String];
-    // return path;
+/**
+    This was an earlier implementation of getResourcePath(filename)
+    It used a method NSBundle::pathForResource to get files from the /Resources directory
+    but it points to ./build in dev-mode. and /Applications/capster.app/Contents/Resources in prod-mode
+    std::string getResourcePath(const std::string& fileName) {
+        NSBundle* mainBundle = [NSBundle mainBundle];
+        NSString* resourcePath = [mainBundle pathForResource:@(fileName.c_str()) ofType:nil];
+        if (resourcePath == nil || resourcePath.length == 0) return "";
+        std::string path = [resourcePath UTF8String];
+        return path;
+    }
+*/
 
+// This returns ./build/../Resources in dev-mode
+// and /Applications/capster.app/Contents/Resources in prod mode
+std::string getResourcePath(const std::string& fileName) 
+{
     return getContentsDirPath() + "/Resources/" + fileName;
 }
 
+// This returns ./build/../Storage in dev-mode
+// and /Applications/capster.app/Contents/Storage in prod mode
 std::string getStorageDirPath()
 {
     return getContentsDirPath() + "/Storage";
