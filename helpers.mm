@@ -78,6 +78,46 @@ std::string getDailyDirPath()
     return path + "/" + date;
 }
 
+bool moveFile(const std::string& srcPath, const std::string& dstPath)
+{
+    // Define source and destination file paths
+    const std::filesystem::path src = srcPath;
+    const std::filesystem::path dst = dstPath;
+    const std::filesystem::path dstDir = dst.parent_path();
+
+    std::cout << src << " " << dst << " " << dstDir << std::endl;
+
+    // Check if destination directory exists
+    if(!std::filesystem::exists(dstDir))
+        std::filesystem::create_directories(dstDir);
+
+    // Check if source file exists
+    if (!std::filesystem::exists(src)) 
+    {
+        std::cerr << "Error: Source file does not exist.\n";
+        return false;
+    }
+
+    // Check if the destination file already exists
+    if (std::filesystem::exists(dst)) 
+    {
+        std::cerr << "Error: Destination file already exists.\n";
+        return false;
+    }
+
+    try 
+    {
+        std::filesystem::rename(src, dst);
+        std::cout << "File moved successfully from " << src << " to " << dst << ".\n";
+    }
+    catch (const std::filesystem::filesystem_error& e) 
+    {
+        std::cerr << "Filesystem error: " << e.what() << '\n';
+        return false;
+    }
+    return true;    
+}
+
 
 
 #define URL_REGEX_PATTERN   "^(https://|http://|://|//)?([\\w,.]*)(.*)"
