@@ -66,9 +66,9 @@ int main(int argc, char *argv[])
     };  
     encoderQueue.OnFinish = [](){
         // check which all WAV files have been succesfully encoded and delete the WAV files
-        std::vector<std::string> history = encoderQueue.GetHistory();
+        std::vector<const std::string> history = encoderQueue.GetHistory();
         basic_log("DONE ENCODING " + std::to_string(history.size()) + "WAV FILE(S)",INFO);
-        for(const auto& wavSrc : encoderQueue.GetHistory())
+        for(const auto& wavSrc : history)
         {
             std::string mpegSrc = wavSrc.substr(0, wavSrc.rfind('.')) + ".mp3";
             std::string aacSrc = wavSrc.substr(0, wavSrc.rfind('.')) + ".aac";
