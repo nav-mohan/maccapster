@@ -14,14 +14,15 @@ void DailyWorker::Handler()
     while(!quit_.load())
     {
         std::unique_lock<std::mutex> lock(mut_);
+        reset_.store(0);
         std::chrono::system_clock::time_point nextExecutionTime = GetNextExecutionTimePoint();
-        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 
         cond_.wait_until(
             lock, nextExecutionTime, [&](){
-                return std::chrono::system_clock::now() >= nextExecutionTime;
+                return (reset_.load() || std::chrono::system_clock::now() >= nextExecutionTime);
             }
         );
+        if(reset_.load()) continue;
         DoTask();
     } 
 }
@@ -52,6 +53,7 @@ void DailyWorker::SetScheduleTime(uint hour, uint min, uint sec)
 {
     std::lock_guard<std::mutex> lock(mut_);
     scheduleTime_ = {hour,min,sec};
+    reset_.store(1);
     cond_.notify_one();
     basic_log("SET SCHEDULE-TIME TO " + std::to_string(hour) + ":" + std::to_string(min) + ":" + std::to_string(sec));
 }

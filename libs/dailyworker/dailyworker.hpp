@@ -18,6 +18,7 @@ struct DailyWorker
     DailyWorker() : workerThread_(&DailyWorker::Handler, this){};
     ~DailyWorker();
     std::atomic_bool quit_ = ATOMIC_VAR_INIT(0);
+    std::atomic_bool reset_ = ATOMIC_VAR_INIT(0);
 
     std::function<void()> DoTask;
     void SetScheduleTime(uint hour, uint min, uint sec);
