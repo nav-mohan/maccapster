@@ -11,6 +11,7 @@
 #include "encoderQueue.hpp"
 #include "archiveQueue.hpp"
 #include "zipArchiver.hpp"
+#include "dailyWorker.hpp"
 
 #include "helpers.mm"
 #include "state.h"
@@ -29,6 +30,7 @@ UserSettings settings;
 EncQueue encoderQueue;
 ArchiveQueue archiveQueue;
 ZipArchiver zipArchiver;
+DailyWorker dailyWorker;
 
 
 // std::ofstream capturedOutput("output.txt");
@@ -78,6 +80,12 @@ int main(int argc, char *argv[])
                 deleteFile(wavSrc);
             }
         }
+    };
+
+    dailyWorker.SetScheduleTime(21,24,30);
+    dailyWorker.DoTask = [&](){
+        printf("DAILY TASK");
+        dailyWorker.SetScheduleTime(21,25,00);
     };
 
     archiveQueue.DoArchiving = [&](const std::string& directoryPath){

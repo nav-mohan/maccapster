@@ -21,6 +21,7 @@ add_subdirectory(libs/macttsqueue)
 add_subdirectory(libs/playbackqueue)
 add_subdirectory(libs/encoderQueue)
 add_subdirectory(libs/archiveQueue)
+add_subdirectory(libs/dailyWorker)
 
 target_include_directories( ${TARGET_NAME} PUBLIC 
     libs/mslogger     
@@ -34,6 +35,7 @@ target_include_directories( ${TARGET_NAME} PUBLIC
     libs/playbackqueue
     libs/encoderQueue
     libs/archiveQueue
+    libs/dailyWorker
     )
 
 target_link_libraries(${TARGET_NAME} PUBLIC 
@@ -47,6 +49,7 @@ target_link_libraries(${TARGET_NAME} PUBLIC
     playbackqueue
     encoderQueue
     archiveQueue
+    dailyWorker
     mslogger
     "-framework Cocoa"
 )
