@@ -28,7 +28,10 @@ struct PBQueue
 
     std::function<void(const std::string& filename)> Play;
     std::function<void()> PlayFirst;
-    std::function<void()> PlayLast;
+    std::function<void()> OnFinish;
+
+    std::vector<const std::string> history_; // a record of all the files we've encoded so far. It is cleared after calling OnFinish()
+    inline std::vector<const std::string> GetHistory() const {return history_;}
 
 };
 

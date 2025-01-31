@@ -119,8 +119,12 @@ int main(int argc, char *argv[])
         relayControl.set_pin();
         playbackUtil.OpenFile(getResourcePath("siren.wav"));
     };
-    playbackQueue.PlayLast = [&](){
+    playbackQueue.OnFinish = [&](){
         relayControl.clear_pin();
+        // convert all these WAV files into MP3 or AAC
+        std::vector<const std::string> history = playbackQueue.GetHistory();
+        for(const auto & wavFile: history)
+            encoderQueue.Push(wavFile);
     };
     playbackQueue.Play = [&](const std::string f){
         playbackUtil.OpenFile(f);

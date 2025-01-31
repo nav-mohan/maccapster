@@ -15,8 +15,13 @@ void PBQueue::Handler()
             queue_.pop();
             busy_.store(1);
             lock.unlock();
+            history_.push_back(filename);
             Play(filename); // blocking call
-            if(!queue_.size()) PlayLast();
+            if(!queue_.size()) 
+            {
+                OnFinish();
+                history_.clear();
+            }
             lock.lock();
             busy_.store(0);
         }
