@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
     
     xmlHandler.enqueueDwnld = [&](const std::string& uri, const std::string& filename){
         Downloadable d;
-        d.filename_ = filename;
+        d.filename_ = getStorageDirPath() + "/" + filename;
         ParseURL(uri,d.host_,d.target_,d.port_);
         downloadQueue.Push(d);
     };
