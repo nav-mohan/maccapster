@@ -33,6 +33,9 @@
 // Stop processing the queue (pause speech synthesis)
 - (void)stopProcessingQueue;
 
+// get the queue size - this is a less reliable substitute for GetHistory that I've implemented for all other queues
+- (NSUInteger)getQueueSize;
+
 @end;
 
 #endif // TTSQUEUE_H

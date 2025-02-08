@@ -134,4 +134,14 @@
     [_synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
 }
 
+// Method to get the queue size
+// This is a less-reliable substitute for GetHistory but I'm not sure how 
+// to implement that in a way that is compatible with DispatchQueue 
+- (NSUInteger)getQueueSize {
+    [_condition lock];
+    NSUInteger count = _queue.count;
+    [_condition unlock];
+    return count;
+}
+
 @end
