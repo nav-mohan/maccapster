@@ -124,7 +124,11 @@ int main(int argc, char *argv[])
         // convert all these WAV files into MP3 or AAC
         std::vector<const std::string> history = playbackQueue.GetHistory();
         for(const auto & wavFile: history)
+        {
+            const std::string extension = wavFile.substr(wavFile.rfind('.'));
+            if(extension != "WAV" && extension != "wav") continue; // Only WAV files must be encoded. Downloaded MP3 files shoudln't be encoded.
             encoderQueue.Push(wavFile);
+        }
     };
     playbackQueue.Play = [&](const std::string f){
         playbackUtil.OpenFile(f);
