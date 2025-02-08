@@ -27,9 +27,10 @@ struct HistoryItem
     std::string identifier_;
     std::string eventType_;
     std::time_t timestamp_;
+    std::string language_;
     
-    HistoryItem(std::string identifier, std::string eventType, std::string timestamp)
-    : identifier_(identifier), eventType_(eventType) {
+    HistoryItem(std::string identifier, std::string eventType, std::string timestamp, std::string language)
+    : identifier_(identifier), eventType_(eventType), language_(language) {
         auto tm = parseTimestamp(timestamp);
         std::time_t t1 = std::mktime(&tm);
         timestamp_ = t1;
@@ -37,6 +38,7 @@ struct HistoryItem
 
     // checks if two alerts are identical, or the same event that happened within 15 minutes of each other
     const bool is_basically_same(const HistoryItem& other) const {
+        if(language_ != other.language_) return false;
         if (identifier_ == other.identifier_) return true;
         if(eventType_ != other.eventType_) return false;
         const double difference = std::difftime(timestamp_, other.timestamp_);

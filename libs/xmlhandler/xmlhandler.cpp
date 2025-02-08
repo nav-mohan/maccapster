@@ -146,7 +146,7 @@ void XmlHandler::process_matches(std::string &host)
         
         // the alert is relevant to our geographic area. 
         // finally, check history to see if we've already handled this 
-        const HistoryItem currentItem(identifier.data(),eventType.data(),sent.data());
+        const HistoryItem currentItem(identifier.data(),eventType.data(),sent.data(),language.data());
         if (XmlHandler::check_update_history(currentItem)) return;
 
         // std::string audioFileName = sent.data() + "-" + identifier.data() + "-" + language;
