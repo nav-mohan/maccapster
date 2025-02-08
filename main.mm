@@ -30,7 +30,7 @@ UserSettings settings;
 EncQueue encoderQueue;
 ArchiveQueue archiveQueue;
 ZipArchiver zipArchiver;
-DailyWorker dailyWorker;
+// DailyWorker dailyWorker;
 
 
 // std::ofstream capturedOutput("output.txt");
@@ -82,11 +82,6 @@ int main(int argc, char *argv[])
         }
     };
 
-    dailyWorker.SetScheduleTime(21,24,30);
-    dailyWorker.DoTask = [&](){
-        printf("DAILY TASK");
-        dailyWorker.SetScheduleTime(21,25,00);
-    };
 
     archiveQueue.DoArchiving = [&](const std::string& directoryPath){
         const std::string archivePath = directoryPath + ".zip";
@@ -199,6 +194,54 @@ int main(int argc, char *argv[])
         Speechable *sp = [[Speechable alloc] initWithTextFilenameLanguage:nst filename:nsf language:nsl];
         [ttsq enqueueText : sp];
         [sp release];
+    };
+
+    struct WaitForAllQueues
+    {
+        bool operator()()
+        {
+            if([ttsq_ getQueueSize]) 
+            {
+                printf("ttsq is busy\n");
+                return  false;
+            }
+            if(encoderQueue.GetHistory().size()) 
+            {
+                printf("encoderQueue is busy\n");
+                return false;
+            }
+            if(dwq_.GetHistory().size()) 
+            {
+                printf("downloadQueue is busy\n");
+                return false;
+            }
+            if(pbq_.GetHistory().size()) 
+            {
+                printf("playbackQueue is busy\n");
+                return false;
+            }
+
+            printf("Daily worker done waiting for all queues\n");
+            return true;            
+        }
+
+        // the list of external-queues that the DailyWorker must wait for. This list could be easily expanded.
+        const TextToSpeechQueue * ttsq_;
+        const PBQueue           & pbq_;
+        const DWQueue           & dwq_;
+
+        WaitForAllQueues(const TextToSpeechQueue * t, const PBQueue & p, const DWQueue & d )
+            : ttsq_(t) , pbq_(p) , dwq_(d){}
+    };
+
+    WaitForAllQueues waiter(ttsq, playbackQueue, downloadQueue);
+    DailyWorker<WaitForAllQueues> dailyWorker(waiter);
+    dailyWorker.SetScheduleTime(18,41,40);
+    dailyWorker.DoTask = [&](){
+        printf("DAILY TASK\n");
+        // take the .mp3, .aac, .xml files inside Storage/ folder (except .log files) and move it into a folder with today's date
+        // then zip that folder 
+        dailyWorker.SetScheduleTime(21,25,00);
     };
 
     xmlHandler.writeToFile = [](std::string content, std::string filename){
