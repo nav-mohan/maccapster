@@ -14,7 +14,7 @@
 struct PBQueue
 {
     std::queue<std::string> queue_;
-    std::mutex mut_;
+    mutable std::mutex mut_;
     std::thread workerThread_;
     std::condition_variable cond_;
     void Handler();
@@ -31,7 +31,12 @@ struct PBQueue
     std::function<void()> OnFinish;
 
     std::vector<const std::string> history_; // a record of all the files we've encoded so far. It is cleared after calling OnFinish()
-    inline std::vector<const std::string> GetHistory() const {return history_;}
+    inline std::vector<const std::string> GetHistory() const 
+    {
+        // read/write history when lock is held
+        std::lock_guard<std::mutex> lock(mut_);
+        return history_;
+    }
 
 };
 

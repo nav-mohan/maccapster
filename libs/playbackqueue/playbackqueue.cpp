@@ -14,16 +14,16 @@ void PBQueue::Handler()
             std::string filename = std::move(queue_.front());
             queue_.pop();
             busy_.store(1);
+            history_.push_back(filename); // read/write history when lock is held
             lock.unlock();
-            history_.push_back(filename);
             Play(filename); // blocking call
+            lock.lock();
+            busy_.store(0);
             if(!queue_.size()) 
             {
                 OnFinish();
-                history_.clear();
+                history_.clear(); // read/write history when lock is held
             }
-            lock.lock();
-            busy_.store(0);
         }
     }
     while(quit_.load()==0);
