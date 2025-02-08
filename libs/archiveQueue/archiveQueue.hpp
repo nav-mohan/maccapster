@@ -13,7 +13,7 @@
 struct ArchiveQueue
 {
     std::queue<std::string> m_queue;
-    std::mutex m_mut;
+    mutable std::mutex m_mut;
     std::thread m_workerThread;
     std::condition_variable m_cond;
 
@@ -30,6 +30,14 @@ struct ArchiveQueue
 
     std::function<void(const std::string& directoryPath)> DoArchiving;
     std::function<void()> OnFinishArchiving;
+
+    std::vector<const std::string> m_history;
+    std::vector<const std::string> GetHistory() const 
+    {
+        // read/write history when lock is held
+        std::lock_guard<std::mutex> lock(m_mut); 
+        return m_history;
+    }
 };
 
 

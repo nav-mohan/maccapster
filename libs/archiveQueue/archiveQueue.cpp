@@ -15,11 +15,16 @@ void ArchiveQueue::Handler()
             std::string directoryPath = std::move(m_queue.front());
             m_queue.pop();
             m_busy.store(1);
+            m_history.push_back(directoryPath); // read/write history when lock is held
             lock.unlock();
             DoArchiving(directoryPath);
-            if(m_queue.size() == 0) OnFinishArchiving();
             lock.lock();
             m_busy.store(0);
+            if(m_queue.size() == 0) 
+            {
+                OnFinishArchiving();
+                m_history.clear(); // read/write history when lock is held
+            }
         }
     } while (m_quit.load() == 0);
 }
