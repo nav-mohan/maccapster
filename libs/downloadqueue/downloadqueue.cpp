@@ -31,11 +31,16 @@ void DWQueue::Handler()
             Downloadable d = std::move(queue_.front());
             queue_.pop();
             busy_.store(1);
+            history_.push_back(d); // history is modified when lock is held
             lock.unlock();
             if (d.port_ == "443") SecureDownload(d);
             else Download(d);
             lock.lock();
             busy_.store(0);
+            if(queue_.size() == 0) 
+            {
+                history_.clear(); // history is modified when lock is held
+            }
         }
 //        else 
 //            printf("waiting...\n");

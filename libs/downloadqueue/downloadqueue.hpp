@@ -36,7 +36,7 @@ struct Downloadable
 struct DWQueue
 {
     std::queue<Downloadable> queue_;
-    std::mutex mut_;
+    mutable std::mutex mut_;
     std::thread workerThread_;
     std::condition_variable cond_;
     boost::asio::io_context& ioc_;
@@ -52,6 +52,14 @@ struct DWQueue
     std::function<void(std::string filename)>OnDownload;
 
     boost::asio::ssl::context ctx_;
+
+    std::vector<const Downloadable> history_;
+    const std::vector<const Downloadable> & GetHistory() const 
+    {
+        // read/write history when lock is held
+        std::lock_guard<std::mutex> lock(mut_);
+        return history_;
+    }
 
 };
 
