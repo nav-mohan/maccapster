@@ -14,16 +14,16 @@ void EncQueue::Handler()
             std::string filename = std::move(queue_.front());
             queue_.pop();
             busy_.store(1);
-            lock.unlock();
             history_.push_back(filename);
+            lock.unlock();
             Encode(filename); // this blocks the workerThread_
+            lock.lock();
+            busy_.store(0);
             if(queue_.size()==0) 
             {
                 OnFinish();
                 history_.clear();
             }
-            lock.lock();
-            busy_.store(0);
         }
     } while (quit_.load() == 0);
 }
